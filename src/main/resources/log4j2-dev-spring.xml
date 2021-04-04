@@ -53,6 +53,11 @@
             <!--<AppenderRef ref="AppFileAppender"/>-->
             <AppenderRef ref="ConsoleAppender"/>
         </Logger>
+        <Logger name="org.springframework.boot.actuate.endpoint.web" level="trace" additivity="false">
+            <!--<AppenderRef ref="AppFileAppender"/>-->
+            <AppenderRef ref="ConsoleAppender"/>
+        </Logger>
+
         <Logger name="com.bindord.eureka-auth.service.impl.EmailServiceImpl" level="error" additivity="false">
             <!--<AppenderRef ref="AppFileAppender"/>-->
             <AppenderRef ref="ConsoleAppender"/>

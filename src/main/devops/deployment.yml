@@ -30,6 +30,12 @@ spec:
               path: /actuator/health/readiness
               port: 8080
             initialDelaySeconds: 30
+            periodSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
           env:
             - name: SERVER_PORT
               valueFrom:
