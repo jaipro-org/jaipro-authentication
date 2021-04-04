@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hogarep-main-service
+data:
+  application.yaml: |-
+    spring:
+      profiles:
+        active: development
+    server:
+      port: ${SERVER_PORT}

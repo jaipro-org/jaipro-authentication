@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-deployment
+  labels:
+    type: experimental
+    trigger: config-server-test
+spec:
+  selector:
+    matchLabels:
+      app: test
+      type: backend
+  template:
+    metadata:
+      name: eureka-main-svc
+      labels:
+        app: test
+        type: backend
+    spec:
+      containers:
+        - name: eureka-pod
+          image: hogarep:v1
+          imagePullPolicy: IfNotPresent
+  replicas: 1
+  strategy:
+    type: RollingUpdate
