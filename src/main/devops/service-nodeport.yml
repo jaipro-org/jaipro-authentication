@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: eureka-service
+  name: svc-eureka-authentication
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - targetPort: 8080
       port: 8080
   selector:
-    app: test
-    type: backend
+    service: eureka-authentication
+    bd: mongo

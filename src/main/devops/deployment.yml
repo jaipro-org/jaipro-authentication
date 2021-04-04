@@ -1,26 +1,49 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: eureka-deployment
+  name: deploy-eureka-authentication
   labels:
-    type: experimental
-    trigger: config-server-test
+    service: eureka-authentication
+    app: hogarep
+  namespace: default
 spec:
   selector:
     matchLabels:
-      app: test
-      type: backend
+      service: eureka-authentication
+      bd: mongo
   template:
     metadata:
       name: eureka-main-svc
       labels:
-        app: test
-        type: backend
+        service: eureka-authentication
+        bd: mongo
     spec:
       containers:
-        - name: eureka-pod
-          image: hogarep:v1
+        - name: eureka-authentication
+          image: peterzinho16/eureka-authentication:0.1
           imagePullPolicy: IfNotPresent
-  replicas: 1
+          ports:
+            - containerPort: 8080
+              name: container-port
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 30
+          env:
+            - name: SERVER_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: secret-eureka-authentication
+                  key: SERVER_PORT
+            - name: SPRING_DATA_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: secret-eureka-authentication
+                  key: SPRING_DATA_MONGODB_URI
+  replicas: 2
   strategy:
     type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 50%
+      maxSurge: 50%

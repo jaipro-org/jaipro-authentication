@@ -1,5 +1,11 @@
 spring:
+  application:
+    name: cm-eureka-authentication
+  cloud:
+    kubernetes:
+      config:
+        name: cm-eureka-authentication
+        sources:
+          - name: cm-eureka-authentication-${PROFILE}
   profiles:
-    active: development
-server:
-  port: 8080
+    active: dev
