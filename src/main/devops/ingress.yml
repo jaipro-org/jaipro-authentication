@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-eureka-authentication
+  labels:
+    service: eureka-authentication
+  namespace: default
+spec:
+  rules:
+    - host: hogarep.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: svc-eureka-authentication
+                port:
+                  number: 8080
+            path: /eureka/authentication
+            pathType: Prefix

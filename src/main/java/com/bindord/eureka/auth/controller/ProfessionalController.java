@@ -7,8 +7,6 @@ import com.bindord.eureka.auth.service.ProfessionalService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -17,11 +15,9 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/professional")
+@RequestMapping("${service.ingress.context-path}/professional")
 @Slf4j
 public class ProfessionalController {
-
-    private static final Logger LOGGER = LogManager.getLogger(ProfessionalController.class);
 
     private ProfessionalService professionalService;
 

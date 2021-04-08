@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/ms-profession")
+@RequestMapping("${service.ingress.context-path}/ms-profession")
 @Slf4j
 public class MsProfessionController {
 

@@ -15,8 +15,11 @@ public class CustomWebFilter implements WebFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange serverWebExchange, WebFilterChain webFilterChain) {
-        return webFilterChain.filter(serverWebExchange).doFinally(
-                (signalType) -> LOGGER.info(serverWebExchange.getRequest().getPath())
-        );
+        var path = serverWebExchange.getRequest().getPath().value();
+
+        if (!path.startsWith("/actuator")) {
+            LOGGER.info("Endpoint >>> " + path);
+        }
+        return webFilterChain.filter(serverWebExchange);
     }
 }

@@ -11,8 +11,6 @@ import com.google.gson.GsonBuilder;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -25,15 +23,14 @@ import javax.validation.Validator;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/worker")
+@RequestMapping("${service.ingress.context-path}/worker")
 @Slf4j
 public class WorkerController {
 
-    private static final Logger LOGGER = LogManager.getLogger(WorkerController.class);
-
     private WorkerService workerService;
 
-    @Autowired private Validator validator;
+    @Autowired
+    private Validator validator;
 
     public WorkerController(WorkerService workerService) {
         this.workerService = workerService;

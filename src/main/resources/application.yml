@@ -5,7 +5,5 @@ spring:
     kubernetes:
       config:
         name: cm-eureka-authentication
-        sources:
-          - name: cm-eureka-authentication-${PROFILE}
   profiles:
     active: dev
