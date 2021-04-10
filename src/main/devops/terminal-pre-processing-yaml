@@ -1,0 +1,3 @@
+sed 's/^/    /' application.yaml
+cat application.yaml >> configmap-template.yaml
+k apply -f ./application.yaml
