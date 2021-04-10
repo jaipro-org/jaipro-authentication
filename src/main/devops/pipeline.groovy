@@ -27,8 +27,9 @@ node {
 
         }
 
-        sh "sed -ie \"s/\\SVC_NAME/$SVC_NAME/\" $BASE_CONFIGMAP"
-        sh "cat $BASE_CONFIGMAP"
+        sh "ls"
+//        sh "sed -ie \"s/\\SVC_NAME/$SVC_NAME/\" $BASE_CONFIGMAP"
+//        sh "cat $BASE_CONFIGMAP"
     }
 
     /*stage('INIT2') {
