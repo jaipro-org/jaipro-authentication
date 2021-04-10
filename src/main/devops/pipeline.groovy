@@ -25,8 +25,8 @@ node {
             sh "echo '****** STARTING PHASE: fetching service properties'"
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-properties.git'
 
-            sh "sed -ie \"s/\\SVC_NAME/$SVC_NAME/\" \\" +
-                   "-ie \"s/\\PRODUCT_NAME/$PRODUCT_NAME/\" \\" +
+            sh "sed -e \"s/\\SVC_NAME/$SVC_NAME/\" \\" +
+                   "-e \"s/\\PRODUCT_NAME/$PRODUCT_NAME/\" -i\\" +
                     BASE_CONFIGMAP
             sh "cat $BASE_CONFIGMAP"
         }
