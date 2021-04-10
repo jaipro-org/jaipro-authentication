@@ -40,7 +40,7 @@ node {
     stage('DEPLOYING TO K8S') {
         sh 'echo "INIT K8S...."'
         //acsDeploy azureCredentialsId: 'AKS_BINDORD_CLIENT', configFilePaths: 'app/src/main/devops/deployment.yml', containerService: 'cluster-webapps | AKS', dcosDockerCredentialsPath: '', resourceGroupName: 'rg-devops', secretName: '', sshCredentialsId: '96a4e79f-641b-4521-9a35-d41bf54224e8'
-        kubernetesDeploy configs: "$JOB_FULLPATH/$MASTER_FOLDER/$BASE_CONFIGMAP", kubeconfigId: K8S_LOCAL, enableConfigSubstitution: true
+        kubernetesDeploy configs: "$JOB_FULLPATH/$MASTER_FOLDER/**.yml", kubeconfigId: K8S_LOCAL, enableConfigSubstitution: true
     }
 
     /*stage('INIT2') {
