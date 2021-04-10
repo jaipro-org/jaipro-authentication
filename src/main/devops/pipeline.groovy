@@ -11,13 +11,15 @@ node {
 
     stage('FETCHING SERVICE PROPERTIES') {
         dir(MASTER_FOLDER) {
+            sh "echo '****** STARTING PHASE: fetching service properties'"
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-properties.git'
         }
     }
 
-    stage('INIT ') {
+    stage('INIT') {
         dir(SVC_FOLDER) {
-            git branch: 'main', credentialsId: $GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/$SVC_NAME.git'
+            sh "echo '****** STARTING PHASE: init'"
+            git branch: 'main', credentialsId: $GIT_MASTER_CREDENTIALS_ID, url: "https://github.com/bindord-org/$SVC_NAME.git"
         }
     }
 
