@@ -19,7 +19,7 @@ node {
     stage('INIT') {
         dir(SVC_FOLDER) {
             sh "echo '****** STARTING PHASE: init'"
-            git branch: 'main', credentialsId: $GIT_MASTER_CREDENTIALS_ID, url: "https://github.com/bindord-org/$SVC_NAME.git"
+            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: "https://github.com/bindord-org/$SVC_NAME.git"
         }
     }
 
