@@ -8,6 +8,7 @@ node {
     def SVC_NAME        = 'eureka-authentication'
     def SVC_FOLDER      = 'SERVICE'
 
+    sh "start"
 
     stage('FETCHING SERVICE PROPERTIES') {
         dir(MASTER_FOLDER) {
