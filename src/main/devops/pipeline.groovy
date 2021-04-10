@@ -31,6 +31,7 @@ node {
                    "-e \"s/\\PRODUCT_NAME/$PRODUCT_NAME/\" -i \\" +
                     BASE_CONFIGMAP
             sh "sed -i 's/^/    /' $APPLICATION_PROPERTIES_PATH"
+            sh "cat $APPLICATION_PROPERTIES_PATH >> $BASE_CONFIGMAP"
             sh "cat $BASE_CONFIGMAP"
         }
     }
