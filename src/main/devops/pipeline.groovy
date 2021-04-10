@@ -8,7 +8,10 @@ node {
     def SVC_NAME        = 'eureka-authentication'
     def SVC_FOLDER      = 'SERVICE'
 
-    sh "start"
+    stage('INIT') {
+        sh "echo '******INITIALIZING.....'"
+
+    }
 
     stage('FETCHING SERVICE PROPERTIES') {
         dir(MASTER_FOLDER) {
@@ -17,7 +20,7 @@ node {
         }
     }
 
-    stage('INIT') {
+    stage('INIT2') {
         dir(SVC_FOLDER) {
             sh "echo '****** STARTING PHASE: init'"
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: "https://github.com/bindord-org/$SVC_NAME.git"
