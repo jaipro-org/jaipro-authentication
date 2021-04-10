@@ -14,7 +14,7 @@ node {
     def PRODUCT_NAME    = 'hogarep'
     def SVC_NAME        = 'eureka-authentication'
     def SVC_FOLDER      = 'service'
-    def APPLICATION_PROPERTIES_PATH = "./$SVC_NAME/application-$DEPLOY_ENV" + ".yml"
+    def APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yaml"
 
     stage('PRINT VARIABLES') {
         sh "echo 'JOB_FULLPATH: $JOB_FULLPATH'"
