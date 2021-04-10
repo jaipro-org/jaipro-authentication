@@ -1,8 +1,9 @@
 node {
 
     // FUNDAMENTAL_PROPS
-    def GIT_MASTER_CREDENTIALS_ID   ='GITHUB_PPCC'
-    def MASTER_FOLDER               ='master'
+    def GIT_MASTER_CREDENTIALS_ID   = 'GITHUB_PPCC'
+    def MASTER_FOLDER               = 'master'
+    def DEPLOY_ENV                  = 'dev'
     // - BASE PATHS
     def JOB_NAME            = env.JOB_NAME
     def JOB_FULLPATH_CON    = '/var/jenkins_home/workspace/' + JOB_NAME
@@ -13,6 +14,7 @@ node {
     def PRODUCT_NAME    = 'hogarep'
     def SVC_NAME        = 'eureka-authentication'
     def SVC_FOLDER      = 'service'
+    def APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yml"
 
     stage('PRINT VARIABLES') {
         sh "echo 'JOB_FULLPATH: $JOB_FULLPATH'"
@@ -28,6 +30,7 @@ node {
             sh "sed -e \"s/\\SVC_NAME/$SVC_NAME/\" \\" +
                    "-e \"s/\\PRODUCT_NAME/$PRODUCT_NAME/\" -i \\" +
                     BASE_CONFIGMAP
+            sh "sed -i 's/^/    /' $APPLICATION_PROPERTIES_PATH"
             sh "cat $BASE_CONFIGMAP"
         }
     }
