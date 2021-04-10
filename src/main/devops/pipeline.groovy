@@ -7,7 +7,7 @@ node {
     def JOB_NAME            = env.JOB_NAME
     def JOB_FULLPATH_CON    = '/var/jenkins_home/workspace/' + JOB_NAME
     def JOB_FULLPATH        = env.WORKSPACE
-    def BASE_CONFIGMAP      = 'config-map-base.yaml'
+    def BASE_CONFIGMAP      = './config-map-base.yaml'
 
     // SERVICE PROPS
     def PRODUCT_NAME    = 'hogarep'
