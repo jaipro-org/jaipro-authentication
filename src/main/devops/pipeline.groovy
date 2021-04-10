@@ -13,17 +13,17 @@ node {
 
     }
 
-    /*stage('FETCHING SERVICE PROPERTIES') {
+    stage('FETCHING SERVICE PROPERTIES') {
         dir(MASTER_FOLDER) {
             sh "echo '****** STARTING PHASE: fetching service properties'"
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-properties.git'
         }
-    }*/
+    }
 
     stage('INIT2') {
         dir(SVC_FOLDER) {
             sh "echo '****** STARTING PHASE: init'"
-            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: "https://github.com/bindord-org/eureka-authentication.git"
+            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: "https://github.com/bindord-org/$SVC_NAME"+".git"
         }
     }
 
