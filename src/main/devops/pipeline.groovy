@@ -25,11 +25,9 @@ node {
             sh "echo '****** STARTING PHASE: fetching service properties'"
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-properties.git'
 
+            sh "sed -ie \"s/\\SVC_NAME/$SVC_NAME/\" $BASE_CONFIGMAP"
+            sh "cat $BASE_CONFIGMAP"
         }
-
-        sh "ls"
-//        sh "sed -ie \"s/\\SVC_NAME/$SVC_NAME/\" $BASE_CONFIGMAP"
-//        sh "cat $BASE_CONFIGMAP"
     }
 
     /*stage('INIT2') {
