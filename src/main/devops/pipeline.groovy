@@ -7,7 +7,7 @@ node {
     def JOB_NAME            = env.JOB_NAME
     def JOB_FULLPATH_CON    = '/var/jenkins_home/workspace/' + JOB_NAME
     def JOB_FULLPATH        = env.WORKSPACE
-    def BASE_CONFIGMAP      = './config-map-base.yaml'
+    def BASE_CONFIGMAP      = 'base/config-map-base.yaml'
 
     // SERVICE PROPS
     def PRODUCT_NAME    = 'hogarep'
@@ -25,10 +25,10 @@ node {
             sh "echo '****** STARTING PHASE: fetching service properties'"
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-properties.git'
 
-            sh "ls"
-//            sh "sed -ie \"s/\\SVC_NAME/$SVC_NAME/\" $BASE_CONFIGMAP"
-//            sh "cat $BASE_CONFIGMAP"
         }
+
+        sh "sed -ie \"s/\\SVC_NAME/$SVC_NAME/\" $BASE_CONFIGMAP"
+        sh "cat $BASE_CONFIGMAP"
     }
 
     /*stage('INIT2') {
