@@ -4,6 +4,7 @@ node {
     def GIT_MASTER_CREDENTIALS_ID   = 'GITHUB_PPCC'
     def MASTER_FOLDER               = 'master'
     def DEPLOY_ENV                  = 'dev'
+    def K8S_LOCAL                   = 'K8S_CONFIG_ID_LOCAL'
     // - BASE PATHS
     def JOB_NAME            = env.JOB_NAME
     def JOB_FULLPATH_CON    = '/var/jenkins_home/workspace/' + JOB_NAME
@@ -39,7 +40,7 @@ node {
     stage('DEPLOYING TO K8S') {
         sh 'echo "INIT K8S...."'
         //acsDeploy azureCredentialsId: 'AKS_BINDORD_CLIENT', configFilePaths: 'app/src/main/devops/deployment.yml', containerService: 'cluster-webapps | AKS', dcosDockerCredentialsPath: '', resourceGroupName: 'rg-devops', secretName: '', sshCredentialsId: '96a4e79f-641b-4521-9a35-d41bf54224e8'
-        kubernetesDeploy configs: "$JOB_FULLPATH/$MASTER_FOLDER/$BASE_CONFIGMAP", kubeconfigId: 'DIGITAL_OCEAN_K8S', enableConfigSubstitution: true
+        kubernetesDeploy configs: "$JOB_FULLPATH/$MASTER_FOLDER/$BASE_CONFIGMAP", kubeconfigId: K8S_LOCAL, enableConfigSubstitution: true
     }
 
     /*stage('INIT2') {
