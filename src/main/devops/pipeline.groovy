@@ -7,16 +7,15 @@ node {
     def K8S_LOCAL                   = 'K8S_CONFIG_ID_LOCAL'
     // - BASE PATHS
     def JOB_NAME            = env.JOB_NAME
-    def JOB_FULLPATH_CON    = '/var/jenkins_home/workspace/' + JOB_NAME
     def JOB_FULLPATH        = env.WORKSPACE
     def BASE_CONFIGMAP      = 'base/config-map-base.yaml'
 
     // SERVICE PROPS
+    def SVC_REPOSITORY_URL = scm.userRemoteConfigs[0].url
     def PRODUCT_NAME    = 'hogarep'
     def SVC_NAME        = 'eureka-authentication'
-    def SVC_FOLDER      = 'service'
+    def SVC_FOLDER      = "service-$SVC_NAME"
     def APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yaml"
-    def REPOSITORY_URL = scm.userRemoteConfigs[0].url
 
     stage('PRINT VARIABLES') {
         sh "echo 'REPOSITORY_URL: $REPOSITORY_URL'"
@@ -46,11 +45,18 @@ node {
         }
     }
 
-    /*stage('INIT2') {
+    stage('FETCHING SERVICE SOURCES') {
         dir(SVC_FOLDER) {
-            sh "echo '****** STARTING PHASE: init'"
-            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: "https://github.com/bindord-org/$SVC_NAME"+".git"
+            sh "echo '****** STARTING PHASE: fetching service sources'"
+            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: SVC_REPOSITORY_URL
+
+            sh "sed -e \"s/\\SVC_NAME/$SVC_NAME/\" \\" +
+                    "-e \"s/\\PRODUCT_NAME/$PRODUCT_NAME/\" -i \\" +
+                    BASE_CONFIGMAP
+            sh "sed -i 's/^/    /' $APPLICATION_PROPERTIES_PATH"
+            sh "cat $APPLICATION_PROPERTIES_PATH >> $BASE_CONFIGMAP"
+            sh "cat $BASE_CONFIGMAP"
         }
-    }*/
+    }
 
 }
