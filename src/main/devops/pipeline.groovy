@@ -16,6 +16,7 @@ node {
     def SVC_NAME        = 'eureka-authentication'
     def SVC_FOLDER      = "service-$SVC_NAME"
     def APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yaml"
+    def SVC_FULLPATH    = env.WORKSPACE + SVC_FOLDER
 
     stage('PRINT VARIABLES') {
         sh "echo 'SVC_REPOSITORY_URL: $SVC_REPOSITORY_URL'"
@@ -53,7 +54,7 @@ node {
     }
 
     stage('TESTING') {
-        sh "docker run -i --rm -p 8383:8080 -v /root/.m2/:/root/.m2/ -w /$SVC_FOLDER maven:3-alpine mvn clean package"
+        sh "docker run -i --rm -p 8383:8080 -v $SVC_FULLPATH:$SVC_FOLDER -v /root/.m2/:/root/.m2/ -w /$SVC_FOLDER maven:3-alpine mvn clean package"
     }
 
 }
