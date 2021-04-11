@@ -16,7 +16,7 @@ node {
     def SVC_NAME        = 'eureka-authentication'
     def SVC_FOLDER      = "service-$SVC_NAME"
     def APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yaml"
-    def SVC_FULLPATH    = env.WORKSPACE + '/' + SVC_FOLDER
+    def SVC_FULLPATH    = '~/jenkins/jenkins_home/workspace' + '/' + JOB_NAME +'/'+ SVC_FOLDER
 
     stage('PRINT VARIABLES') {
         sh "echo 'SVC_REPOSITORY_URL: $SVC_REPOSITORY_URL'"
