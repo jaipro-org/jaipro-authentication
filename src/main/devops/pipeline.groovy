@@ -21,6 +21,7 @@ node {
 
     //DOCKER REGISTRY PROPS
     def CR_BINDORD_HOST = "peterzinho16"
+    def SVC_IMAGE = ''
 
     stage('PRINT VARIABLES') {
         sh "echo 'SVC_REPOSITORY_URL: $SVC_REPOSITORY_URL'"
@@ -87,7 +88,7 @@ node {
                 '| sed -e \'s/^[[:space:]]*//\' | cut -c 10- | rev | cut -c 11- | rev',
                 returnStdout: true).trim()
 
-        def SVC_IMAGE = "$CR_BINDORD_HOST/$SVC_NAME:$SVC_VERSION"
+        SVC_IMAGE = "$CR_BINDORD_HOST/$SVC_NAME:$SVC_VERSION"
 
         sh "echo 'SVC_VERSION: ${SVC_VERSION}--'"
         sh "docker build " +
@@ -97,6 +98,7 @@ node {
     }
 
     stage('DEPLOYING TO K8S') {
+
         dir(SVC_FOLDER) {
 
             def IMAGE_PARAM = '${SVC_IMAGE}'
@@ -105,6 +107,7 @@ node {
                     'src/main/devops/deployment.yaml'
             sh "cat src/main/devops/deployment.yaml"
         }
+
     }
 
 }
