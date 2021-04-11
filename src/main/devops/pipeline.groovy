@@ -49,13 +49,6 @@ node {
         dir(SVC_FOLDER) {
             sh "echo '****** STARTING PHASE: fetching service sources'"
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: SVC_REPOSITORY_URL
-
-            sh "sed -e \"s/\\SVC_NAME/$SVC_NAME/\" \\" +
-                    "-e \"s/\\PRODUCT_NAME/$PRODUCT_NAME/\" -i \\" +
-                    BASE_CONFIGMAP
-            sh "sed -i 's/^/    /' $APPLICATION_PROPERTIES_PATH"
-            sh "cat $APPLICATION_PROPERTIES_PATH >> $BASE_CONFIGMAP"
-            sh "cat $BASE_CONFIGMAP"
         }
     }
 
