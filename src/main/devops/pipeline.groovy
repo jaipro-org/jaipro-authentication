@@ -16,8 +16,10 @@ node {
     def SVC_NAME        = 'eureka-authentication'
     def SVC_FOLDER      = 'service'
     def APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yaml"
+    def REPOSITORY_URL = scm.userRemoteConfigs[0].url
 
     stage('PRINT VARIABLES') {
+        sh "echo 'REPOSITORY_URL: $REPOSITORY_URL'"
         sh "echo 'JOB_FULLPATH: $JOB_FULLPATH'"
         sh "echo 'JOB_NAME: $JOB_NAME'"
         sh "echo '******INITIALIZING.....'"
@@ -37,10 +39,8 @@ node {
         }
     }
 
-    stage('DEPLOYING TO K8S') {
+    stage('DEPLOYING CONFIGMAP') {
         sh 'echo "INIT K8S...."'
-        //acsDeploy azureCredentialsId: 'AKS_BINDORD_CLIENT', configFilePaths: 'app/src/main/devops/deployment.yml', containerService: 'cluster-webapps | AKS', dcosDockerCredentialsPath: '', resourceGroupName: 'rg-devops', secretName: '', sshCredentialsId: '96a4e79f-641b-4521-9a35-d41bf54224e8'
-//        kubernetesDeploy configs: "$MASTER_FOLDER/$BASE_CONFIGMAP", kubeconfigId: K8S_LOCAL, enableConfigSubstitution: true
         withKubeConfig([credentialsId: K8S_LOCAL]) {
             sh "kubectl apply -f $MASTER_FOLDER/$BASE_CONFIGMAP"
         }
