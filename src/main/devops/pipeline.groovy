@@ -88,7 +88,7 @@ node {
                             returnStdout: true
 
         sh "docker build " +
-                "-t $CR_BINDORD_HOST/$SVC_NAME:${SVC_VERSION} " +
+                "-t $CR_BINDORD_HOST/$SVC_NAME:$SVC_VERSION " +
                 "-f ./$SVC_FOLDER/src/main/devops/Dockerfile " +
                 "./$SVC_FOLDER/target"
     }
