@@ -105,7 +105,10 @@ node {
 
             sh "sed -e 's|\\$IMAGE_PARAM|$SVC_IMAGE|' -i \\" +
                     'src/main/devops/deployment.yaml'
+
             sh "cat src/main/devops/deployment.yaml"
+
+            sh "kubectl apply -f src/main/devops/deployment.yaml"
         }
 
     }
