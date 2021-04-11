@@ -62,27 +62,34 @@ node {
 
     stage('TESTING') {
         sh "echo '****** STARTING PHASE: testing'"
-        sh "echo ${POM_VERSION}"
 
-//        sh "docker run -i --rm -p 8080:8080 " +
-//                "-v $SVC_FULLPATH:/$SVC_FOLDER " +
-//                "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
-//                "-w /$SVC_FOLDER " +
-//                "maven:3.8.1-openjdk-11-slim " +
-//                "mvn test"
+        sh "docker run -i --rm -p 8080:8080 " +
+                "-v $SVC_FULLPATH:/$SVC_FOLDER " +
+                "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
+                "-w /$SVC_FOLDER " +
+                "maven:3.8.1-openjdk-11-slim " +
+                "mvn test"
     }
 
     stage('COMPILING AND PUSHING IMAGE') {
-//        sh "echo '****** STARTING PHASE: compiling and pushing image'"
-//
-//        sh "docker run -i --rm -p 8080:8080 " +
-//                "-v $SVC_FULLPATH:/$SVC_FOLDER " +
-//                "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
-//                "-w /$SVC_FOLDER " +
-//                "maven:3.8.1-openjdk-11-slim " +
-//                "mvn clean package"
-//
-//        sh "docker build -t $CR_BINDORD_HOST/$SVC_NAME:${POM_VERSION} -f ./$SVC_FOLDER/src/main/devops/Dockerfile ./$SVC_FOLDER/target"
+        sh "echo '****** STARTING PHASE: compiling and pushing image'"
+
+        sh "docker run -i --rm -p 8080:8080 " +
+                "-v $SVC_FULLPATH:/$SVC_FOLDER " +
+                "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
+                "-w /$SVC_FOLDER " +
+                "maven:3.8.1-openjdk-11-slim " +
+                "mvn clean package"
+
+        def SVC_VERSION = sh "cat $SVC_FOLDER/pom.xml " +
+                                '| grep -B 1 \'name\' ' +
+                                '| grep \'<version>\' ' +
+                                '| sed -e \'s/^[[:space:]]*//\' | cut -c 10- | rev | cut -c 11- | rev'
+
+        sh "docker build " +
+                "-t $CR_BINDORD_HOST/$SVC_NAME:${SVC_VERSION} " +
+                "-f ./$SVC_FOLDER/src/main/devops/Dockerfile " +
+                "./$SVC_FOLDER/target"
     }
 
 }
