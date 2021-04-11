@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: eureka-authentication
-          image: peterzinho16/eureka-authentication:0.1
+          image: ${SVC_IMAGE}
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

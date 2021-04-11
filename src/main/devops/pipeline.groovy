@@ -1,23 +1,23 @@
 node {
 
     // FUNDAMENTAL_PROPS
-    def GIT_MASTER_CREDENTIALS_ID   = 'GITHUB_PPCC'
-    def MASTER_FOLDER               = 'master'
-    def DEPLOY_ENV                  = 'dev'
-    def K8S_LOCAL                   = 'K8S_CONFIG_ID_LOCAL'
+    def GIT_MASTER_CREDENTIALS_ID = 'GITHUB_PPCC'
+    def MASTER_FOLDER = 'master'
+    def DEPLOY_ENV = 'dev'
+    def K8S_LOCAL = 'K8S_CONFIG_ID_LOCAL'
     // - BASE PATHS
-    def JOB_NAME            = env.JOB_NAME
-    def JOB_FULLPATH        = env.WORKSPACE
-    def BASE_CONFIGMAP      = 'base/config-map-base.yaml'
-    def MVN_REPOSITORY      = '/root/.m2'
+    def JOB_NAME = env.JOB_NAME
+    def JOB_FULLPATH = env.WORKSPACE
+    def BASE_CONFIGMAP = 'base/config-map-base.yaml'
+    def MVN_REPOSITORY = '/root/.m2'
 
     // SERVICE PROPS
     def SVC_REPOSITORY_URL = scm.userRemoteConfigs[0].url
-    def PRODUCT_NAME    = 'hogarep'
-    def SVC_NAME        = 'eureka-authentication'
-    def SVC_FOLDER      = "service-$SVC_NAME"
+    def PRODUCT_NAME = 'hogarep'
+    def SVC_NAME = 'eureka-authentication'
+    def SVC_FOLDER = "service-$SVC_NAME"
     def APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yaml"
-    def SVC_FULLPATH    = '/home/ubuntu/jenkins/jenkins_home/workspace' + '/' + JOB_NAME +'/'+ SVC_FOLDER
+    def SVC_FULLPATH = '/home/ubuntu/jenkins/jenkins_home/workspace' + '/' + JOB_NAME + '/' + SVC_FOLDER
 
     //DOCKER REGISTRY PROPS
     def CR_BINDORD_HOST = "peterzinho16"
@@ -36,7 +36,7 @@ node {
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-properties.git'
 
             sh "sed -e \"s/\\SVC_NAME/$SVC_NAME/\" \\" +
-                   "-e \"s/\\PRODUCT_NAME/$PRODUCT_NAME/\" -i \\" +
+                    "-e \"s/\\PRODUCT_NAME/$PRODUCT_NAME/\" -i \\" +
                     BASE_CONFIGMAP
             sh "sed -i 's/^/    /' $APPLICATION_PROPERTIES_PATH"
             sh "cat $APPLICATION_PROPERTIES_PATH >> $BASE_CONFIGMAP"
@@ -63,35 +63,45 @@ node {
     stage('TESTING') {
         sh "echo '****** STARTING PHASE: testing'"
 
-        sh "docker run -i --rm -p 8080:8080 " +
-                "-v $SVC_FULLPATH:/$SVC_FOLDER " +
-                "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
-                "-w /$SVC_FOLDER " +
-                "maven:3.8.1-openjdk-11-slim " +
-                "mvn test"
+//        sh "docker run -i --rm -p 8080:8080 " +
+//                "-v $SVC_FULLPATH:/$SVC_FOLDER " +
+//                "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
+//                "-w /$SVC_FOLDER " +
+//                "maven:3.8.1-openjdk-11-slim " +
+//                "mvn test"
     }
 
     stage('COMPILING AND PUSHING IMAGE') {
         sh "echo '****** STARTING PHASE: compiling and pushing image'"
 
-        sh "docker run -i --rm -p 8080:8080 " +
-                "-v $SVC_FULLPATH:/$SVC_FOLDER " +
-                "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
-                "-w /$SVC_FOLDER " +
-                "maven:3.8.1-openjdk-11-slim " +
-                "mvn clean package"
+//        sh "docker run -i --rm -p 8080:8080 " +
+//                "-v $SVC_FULLPATH:/$SVC_FOLDER " +
+//                "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
+//                "-w /$SVC_FOLDER " +
+//                "maven:3.8.1-openjdk-11-slim " +
+//                "mvn clean package"
+//
+//        def SVC_VERSION = sh(script: "cat $SVC_FOLDER/pom.xml " +
+//                '| grep -B 1 \'name\' ' +
+//                '| grep \'<version>\' ' +
+//                '| sed -e \'s/^[[:space:]]*//\' | cut -c 10- | rev | cut -c 11- | rev',
+//                returnStdout: true).trim()
+//
+//        sh "echo 'SVC_VERSION: ${SVC_VERSION}--'"
+//        sh "docker build " +
+//                "-t $CR_BINDORD_HOST/$SVC_NAME:$SVC_VERSION " +
+//                "-f ./$SVC_FOLDER/src/main/devops/Dockerfile " +
+//                "./$SVC_FOLDER/target"
+    }
 
-        def SVC_VERSION = sh (script: "cat $SVC_FOLDER/pom.xml " +
-                            '| grep -B 1 \'name\' ' +
-                            '| grep \'<version>\' ' +
-                            '| sed -e \'s/^[[:space:]]*//\' | cut -c 10- | rev | cut -c 11- | rev',
-                            returnStdout: true).trim()
+    stage('DEPLOYING TO K8S') {
+        dir(SVC_FOLDER) {
+            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-properties.git'
 
-        sh "echo 'SVC_VERSION: ${SVC_VERSION}--'"
-        sh "docker build " +
-                "-t $CR_BINDORD_HOST/$SVC_NAME:$SVC_VERSION " +
-                "-f ./$SVC_FOLDER/src/main/devops/Dockerfile " +
-                "./$SVC_FOLDER/target"
+            sh "sed -e \"s/\\${SVC_IMAGE}/$SVC_NAME/\" -i \\" +
+                    'src/main/devops/deployment.yaml'
+            sh "cat src/main/devops/deployment.yaml"
+        }
     }
 
 }
