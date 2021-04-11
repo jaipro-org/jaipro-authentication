@@ -54,7 +54,7 @@ node {
     }
 
     stage('TESTING') {
-        sh "docker run -i --rm -p 8383:8080 -v $SVC_FULLPATH:/$SVC_FOLDER -v /root/.m2/:/root/.m2/ -w /$SVC_FOLDER maven:3-alpine mvn clean package"
+        sh "docker run -i --rm -p 8383:8080 -v $SVC_FULLPATH:/$SVC_FOLDER -v /root/.m2/:/root/.m2/ -w /$SVC_FOLDER maven:3.8.1-openjdk-11-slim mvn clean package"
     }
 
 }
