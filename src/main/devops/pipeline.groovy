@@ -87,7 +87,7 @@ node {
                             '| sed -e \'s/^[[:space:]]*//\' | cut -c 10- | rev | cut -c 11- | rev',
                             returnStdout: true
 
-        sh "SVC_VERSION: $SVC_VERSION--"
+        sh "echo SVC_VERSION: $SVC_VERSION--"
         sh "docker build " +
                 "-t $CR_BINDORD_HOST/$SVC_NAME:$SVC_VERSION " +
                 "-f ./$SVC_FOLDER/src/main/devops/Dockerfile " +
