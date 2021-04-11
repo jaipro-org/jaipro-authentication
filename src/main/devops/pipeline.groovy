@@ -53,7 +53,7 @@ node {
     }
 
     stage('TESTING') {
-        sh "docker run -i --rm -p 8383:8080 -v /root/.m2/:/root/.m2/ -w /app maven:3-alpine mvn test"
+        sh "docker run -i --rm -p 8383:8080 -v /root/.m2/:/root/.m2/ -w /$SVC_FOLDER maven:3-alpine mvn test"
     }
 
 }
