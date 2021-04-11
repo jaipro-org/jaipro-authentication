@@ -60,46 +60,48 @@ node {
         }
     }
 
-    stage('TESTING') {
+    /*stage('TESTING') {
         sh "echo '****** STARTING PHASE: testing'"
 
-//        sh "docker run -i --rm -p 8080:8080 " +
-//                "-v $SVC_FULLPATH:/$SVC_FOLDER " +
-//                "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
-//                "-w /$SVC_FOLDER " +
-//                "maven:3.8.1-openjdk-11-slim " +
-//                "mvn test"
-    }
+        sh "docker run -i --rm -p 8080:8080 " +
+                "-v $SVC_FULLPATH:/$SVC_FOLDER " +
+                "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
+                "-w /$SVC_FOLDER " +
+                "maven:3.8.1-openjdk-11-slim " +
+                "mvn test"
+    }*/
 
     stage('COMPILING AND PUSHING IMAGE') {
         sh "echo '****** STARTING PHASE: compiling and pushing image'"
 
-//        sh "docker run -i --rm -p 8080:8080 " +
-//                "-v $SVC_FULLPATH:/$SVC_FOLDER " +
-//                "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
-//                "-w /$SVC_FOLDER " +
-//                "maven:3.8.1-openjdk-11-slim " +
-//                "mvn clean package"
-//
-//        def SVC_VERSION = sh(script: "cat $SVC_FOLDER/pom.xml " +
-//                '| grep -B 1 \'name\' ' +
-//                '| grep \'<version>\' ' +
-//                '| sed -e \'s/^[[:space:]]*//\' | cut -c 10- | rev | cut -c 11- | rev',
-//                returnStdout: true).trim()
-//
-//        sh "echo 'SVC_VERSION: ${SVC_VERSION}--'"
-//        sh "docker build " +
-//                "-t $CR_BINDORD_HOST/$SVC_NAME:$SVC_VERSION " +
-//                "-f ./$SVC_FOLDER/src/main/devops/Dockerfile " +
-//                "./$SVC_FOLDER/target"
+        sh "docker run -i --rm -p 8080:8080 " +
+                "-v $SVC_FULLPATH:/$SVC_FOLDER " +
+                "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
+                "-w /$SVC_FOLDER " +
+                "maven:3.8.1-openjdk-11-slim " +
+                "mvn clean package"
+
+        def SVC_VERSION = sh(script: "cat $SVC_FOLDER/pom.xml " +
+                '| grep -B 1 \'name\' ' +
+                '| grep \'<version>\' ' +
+                '| sed -e \'s/^[[:space:]]*//\' | cut -c 10- | rev | cut -c 11- | rev',
+                returnStdout: true).trim()
+
+        def SVC_IMAGE = "$CR_BINDORD_HOST/$SVC_NAME:$SVC_VERSION"
+
+        sh "echo 'SVC_VERSION: ${SVC_VERSION}--'"
+        sh "docker build " +
+                "-t $SVC_IMAGE " +
+                "-f ./$SVC_FOLDER/src/main/devops/Dockerfile " +
+                "./$SVC_FOLDER/target"
     }
 
     stage('DEPLOYING TO K8S') {
         dir(SVC_FOLDER) {
 
-            def SVC_IMAGE = '${SVC_IMAGE}'
+            def IMAGE_PARAM = '${SVC_IMAGE}'
 
-            sh "sed -e 's/\\${SVC_IMAGE}/$SVC_NAME/' -i \\" +
+            sh "sed -e 's/\\$IMAGE_PARAM/$SVC_IMAGE/' -i \\" +
                     'src/main/devops/deployment.yaml'
             sh "cat src/main/devops/deployment.yaml"
         }
