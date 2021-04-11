@@ -98,7 +98,7 @@ node {
         dir(SVC_FOLDER) {
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-properties.git'
 
-            sh "sed -e \"s/\\${SVC_IMAGE}/$SVC_NAME/\" -i \\" +
+            sh "sed -e 's/\\${SVC_IMAGE}/$SVC_NAME/' -i \\" +
                     'src/main/devops/deployment.yaml'
             sh "cat src/main/devops/deployment.yaml"
         }
