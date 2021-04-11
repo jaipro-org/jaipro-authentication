@@ -18,7 +18,7 @@ node {
     def APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yaml"
 
     stage('PRINT VARIABLES') {
-        sh "echo 'REPOSITORY_URL: $REPOSITORY_URL'"
+        sh "echo 'SVC_REPOSITORY_URL: $SVC_REPOSITORY_URL'"
         sh "echo 'JOB_FULLPATH: $JOB_FULLPATH'"
         sh "echo 'JOB_NAME: $JOB_NAME'"
         sh "echo '******INITIALIZING.....'"
