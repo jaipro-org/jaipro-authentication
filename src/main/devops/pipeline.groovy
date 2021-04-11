@@ -108,7 +108,9 @@ node {
 
             sh "cat src/main/devops/deployment.yaml"
 
-            sh "kubectl apply -f src/main/devops/deployment.yaml"
+            withKubeConfig([credentialsId: K8S_LOCAL]) {
+                sh "kubectl apply -f src/main/devops/deployment.yaml"
+            }
         }
 
     }
