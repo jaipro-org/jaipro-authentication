@@ -96,7 +96,6 @@ node {
 
     stage('DEPLOYING TO K8S') {
         dir(SVC_FOLDER) {
-            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-properties.git'
 
             def SVC_IMAGE = '${SVC_IMAGE}'
 
