@@ -121,7 +121,7 @@ node {
 
             def CONTEX_PATH_PARAM = 'SERVICE_INGRESS_CONTEXT_PATH'
 
-            def SVC_CONTEXT_PATH = sh(script: "cat src/main/devops/ingress.yaml " +
+            def SVC_CONTEXT_PATH = sh(script: "cat src/main/resources/application.properties " +
                     "| grep 'service.ingress.context-path=' " +
                     "| awk -F 'service.ingress.context-path=' '{print \$2}'",
                     returnStdout: true).trim()
