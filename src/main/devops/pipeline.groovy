@@ -21,9 +21,9 @@ node {
     // SERVICE PROPS
     def SVC_REPOSITORY_URL = scm.userRemoteConfigs[0].url
     def PRODUCT_NAME = 'hogarep'
-    def SVC_NAME = 'eureka-authentication'
-    def SVC_FOLDER = "service-$SVC_NAME"
-    def APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yaml"
+    def SVC_FOLDER = 'app'
+    def SVC_NAME = ''
+    def APPLICATION_PROPERTIES_PATH = ''
     def SVC_FULLPATH = '/home/ubuntu/jenkins/jenkins_home/workspace' + '/' + JOB_NAME + '/' + SVC_FOLDER
 
     //DOCKER REGISTRY PROPS
@@ -35,6 +35,17 @@ node {
         sh "echo 'JOB_FULLPATH: $JOB_FULLPATH'"
         sh "echo 'JOB_NAME: $JOB_NAME'"
         sh "echo '******INITIALIZING.....'"
+    }
+
+    stage('FETCHING SERVICE SOURCES') {
+        sh "echo '****** STARTING PHASE: fetching service sources'"
+
+        dir(SVC_FOLDER) {
+            git branch: 'gb', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: SVC_REPOSITORY_URL
+
+            SVC_NAME = getPropValueFromProperties('spring.application.name')
+            APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yaml"
+        }
     }
 
     stage('FETCHING SERVICE PROPERTIES') {
@@ -57,14 +68,6 @@ node {
 
         withKubeConfig([credentialsId: K8S_LOCAL]) {
             sh "kubectl apply -f $MASTER_FOLDER/$BASE_CONFIGMAP"
-        }
-    }
-
-    stage('FETCHING SERVICE SOURCES') {
-        sh "echo '****** STARTING PHASE: fetching service sources'"
-
-        dir(SVC_FOLDER) {
-            git branch: 'gb', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: SVC_REPOSITORY_URL
         }
     }
 
@@ -109,8 +112,10 @@ node {
         dir(SVC_FOLDER) {
 
             def IMAGE_PARAM = '${SVC_IMAGE}'
+            def SVC_NAME_PARAM = '${SVC_NAME}'
 
-            sh "sed -e 's|\\$IMAGE_PARAM|$SVC_IMAGE|' -i \\" +
+            sh "sed -e 's|\\$IMAGE_PARAM|$SVC_IMAGE|' " +
+                    "-e 's|\\\\$SVC_NAME_PARAM|$SVC_NAME|' -i \\" +
                     'src/main/devops/deployment.yaml'
 
             sh "cat src/main/devops/deployment.yaml"
@@ -136,6 +141,7 @@ node {
             sh "cat src/main/devops/ingress.yaml"
 
             withKubeConfig([credentialsId: K8S_LOCAL]) {
+                sh "kubectl apply -f src/main/devops/service-nodeport.yaml"
                 sh "kubectl apply -f src/main/devops/ingress.yaml"
             }
 
