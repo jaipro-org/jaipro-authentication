@@ -41,7 +41,7 @@ node {
         sh "echo '****** STARTING PHASE: fetching service sources'"
 
         dir(SVC_FOLDER) {
-            git branch: 'gb', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: SVC_REPOSITORY_URL
+            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: SVC_REPOSITORY_URL
 
             SVC_NAME = getPropValueFromProperties('spring.application.name')
             APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yaml"
