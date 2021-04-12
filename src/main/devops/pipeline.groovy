@@ -1,4 +1,7 @@
 String getPropValueFromProperties(String property) {
+    for (int i in 0..3) {
+        sh "echo '>>>>>>>TEST GETPROPVALUEFROMPROPERTIES: $i'"
+    }
     return sh(script: "cat src/main/resources/application.properties " +
             "| grep '$property=' " +
             "| awk -F '$property=' '{print \$2}'",
