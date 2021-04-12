@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: ${SVC_NAME}
   labels:
-    service: eureka-authentication
+    service: ${SVC_NAME}
   namespace: default
 spec:
   rules:
@@ -12,7 +12,7 @@ spec:
         paths:
           - backend:
               service:
-                name: svc-eureka-authentication
+                name: ${SVC_NAME}
                 port:
                   number: 8080
             path: SERVICE_INGRESS_CONTEXT_PATH
