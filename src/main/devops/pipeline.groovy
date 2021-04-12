@@ -1,3 +1,10 @@
+def getPropValueFromProperties() {
+    return sh(script: "cat src/main/resources/application.properties " +
+            "| grep 'service.ingress.context-path=' " +
+            "| awk -F 'service.ingress.context-path=' '{print \$2}'",
+            returnStdout: true).trim()
+}
+
 node {
 
     // FUNDAMENTAL_PROPS
@@ -57,7 +64,7 @@ node {
         sh "echo '****** STARTING PHASE: fetching service sources'"
 
         dir(SVC_FOLDER) {
-            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: SVC_REPOSITORY_URL
+            git branch: 'gb', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: SVC_REPOSITORY_URL
         }
     }
 
@@ -121,10 +128,7 @@ node {
 
             def CONTEX_PATH_PARAM = 'SERVICE_INGRESS_CONTEXT_PATH'
 
-            def SVC_CONTEXT_PATH = sh(script: "cat src/main/resources/application.properties " +
-                    "| grep 'service.ingress.context-path=' " +
-                    "| awk -F 'service.ingress.context-path=' '{print \$2}'",
-                    returnStdout: true).trim()
+            def SVC_CONTEXT_PATH = getPropValueFromProperties()
 
             sh "sed -e 's|\\$CONTEX_PATH_PARAM|$SVC_CONTEXT_PATH|' -i \\" +
                     'src/main/devops/ingress.yaml'
