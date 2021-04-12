@@ -114,8 +114,8 @@ node {
             def IMAGE_PARAM = '${SVC_IMAGE}'
             def SVC_NAME_PARAM = '${SVC_NAME}'
 
-            sh "sed -e 's|\\$IMAGE_PARAM|$SVC_IMAGE|' " +
-                    "-e 's|\\\\$SVC_NAME_PARAM|$SVC_NAME|' -i \\" +
+            sh "sed -e 's|\\$IMAGE_PARAM|$SVC_IMAGE|' \\" +
+                    "-e 's|\\$SVC_NAME_PARAM|$SVC_NAME|' -i \\" +
                     'src/main/devops/deployment.yaml'
 
             sh "cat src/main/devops/deployment.yaml"
