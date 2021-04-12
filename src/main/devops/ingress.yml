@@ -15,5 +15,5 @@ spec:
                 name: svc-eureka-authentication
                 port:
                   number: 8080
-            path: /eureka/authentication
+            path: SERVICE_INGRESS_CONTEXT_PATH
             pathType: Prefix

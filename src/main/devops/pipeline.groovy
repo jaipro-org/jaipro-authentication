@@ -115,4 +115,28 @@ node {
 
     }
 
+    stage('EXPOSING SERVICE') {
+
+        dir(SVC_FOLDER) {
+
+            def CONTEX_PATH_PARAM = 'SERVICE_INGRESS_CONTEXT_PATH'
+
+            def SVC_CONTEXT_PATH = sh(script: "cat search.yml " +
+                    "| grep 'service.ingress.context-path=' " +
+                    "| awk -F 'service.ingress.context-path=' '{print \$2}'",
+                    returnStdout: true).trim()
+
+            sh "sed -e 's|\\$CONTEX_PATH_PARAM|$SVC_CONTEXT_PATH|' -i \\" +
+                    'src/main/devops/ingress.yaml'
+
+            sh "cat src/main/devops/ingress.yaml"
+
+            /*withKubeConfig([credentialsId: K8S_LOCAL]) {
+                sh "kubectl apply -f src/main/devops/deployment.yaml"
+            }*/
+        }
+
+    }
+
+
 }
