@@ -8,6 +8,19 @@ String getPropValueFromProperties(String property) {
             returnStdout: true).trim()
 }
 
+void replaceVariablesInProperties(property, propertyFile) {
+    sh "echo '*** Init replaceVariablesInProperties'"
+    def commandString = "sed"
+    property.each { item ->
+        commandString += " -e \"s/\\SVC_NAME/$item/\""
+    }
+    commandString += " -i $propertyFile"
+
+    sh "echo 'commandString: $commandString'"
+    sh "$commandString"
+    sh "cat $propertyFile"
+}
+
 node {
 
     // FUNDAMENTAL_PROPS
@@ -57,9 +70,12 @@ node {
         dir(MASTER_FOLDER) {
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-properties.git'
 
-            sh "sed -e \"s/\\SVC_NAME/$SVC_NAME/\" \\" +
-                    "-e \"s/\\PRODUCT_NAME/$PRODUCT_NAME/\" -i \\" +
-                    BASE_CONFIGMAP
+            def keyValueProps = [
+                    "SVC_NAME:$SVC_NAME",
+                    "PRODUCT_NAME:$PRODUCT_NAME"
+            ]
+            replaceVariablesInProperties(keyValueProps, BASE_CONFIGMAP)
+
             sh "sed -i 's/^/    /' $APPLICATION_PROPERTIES_PATH"
             sh "cat $APPLICATION_PROPERTIES_PATH >> $BASE_CONFIGMAP"
             sh "cat $BASE_CONFIGMAP"
