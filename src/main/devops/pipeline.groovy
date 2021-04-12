@@ -44,7 +44,7 @@ node {
     def SVC_FULLPATH = '/home/ubuntu/jenkins/jenkins_home/workspace' + '/' + JOB_NAME + '/' + SVC_FOLDER
 
     // K8S FILES
-    def SVC_DEPLOYMENT = '/src/main/devops/deployment.yaml'
+    def SVC_DEPLOYMENT = 'src/main/devops/deployment.yaml'
 
     //DOCKER REGISTRY PROPS
     def CR_BINDORD_HOST = "peterzinho16"
