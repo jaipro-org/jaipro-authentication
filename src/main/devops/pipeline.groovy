@@ -43,6 +43,9 @@ node {
     def APPLICATION_PROPERTIES_PATH = ''
     def SVC_FULLPATH = '/home/ubuntu/jenkins/jenkins_home/workspace' + '/' + JOB_NAME + '/' + SVC_FOLDER
 
+    // K8S FILES
+    def SVC_DEPLOYMENT = '/src/main/devops/deployment.yaml'
+
     //DOCKER REGISTRY PROPS
     def CR_BINDORD_HOST = "peterzinho16"
     def SVC_IMAGE = ''
@@ -134,14 +137,15 @@ node {
             def IMAGE_PARAM = '${SVC_IMAGE}'
             def SVC_NAME_PARAM = '${SVC_NAME}'
 
-            sh "sed -e 's|\\$IMAGE_PARAM|$SVC_IMAGE|' \\" +
-                    "-e 's|\\$SVC_NAME_PARAM|$SVC_NAME|' -i \\" +
-                    'src/main/devops/deployment.yaml'
+            def keyValueProps = [
+                    "$IMAGE_PARAM:$SVC_NAME",
+                    "$SVC_NAME_PARAM:$SVC_NAME"
+            ]
 
-            sh "cat src/main/devops/deployment.yaml"
+            replaceVariablesInProperties(keyValueProps, SVC_DEPLOYMENT)
 
             withKubeConfig([credentialsId: K8S_LOCAL]) {
-                sh "kubectl apply -f src/main/devops/deployment.yaml"
+                sh "kubectl apply -f $SVC_DEPLOYMENT"
             }
         }
 
