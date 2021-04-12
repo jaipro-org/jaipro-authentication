@@ -47,6 +47,8 @@ node {
 
     // K8S FILES
     def SVC_DEPLOYMENT = 'src/main/devops/deployment.yaml'
+    def SVC_SERVICE = 'src/main/devops/service.yaml'
+    def SVC_INGRESS = 'src/main/devops/ingress.yaml'
 
     //DOCKER REGISTRY PROPS
     def CR_BINDORD_HOST = "peterzinho16"
@@ -157,18 +159,28 @@ node {
 
         dir(SVC_FOLDER) {
 
+            def SVC_NAME_PARAM = '${SVC_NAME}'
+
+            def keyValueProps = [
+                    "$SVC_NAME_PARAM:$SVC_NAME"
+            ]
+
+            replaceVariablesInProperties(keyValueProps, SVC_SERVICE)
+
             def CONTEX_PATH_PARAM = 'SERVICE_INGRESS_CONTEXT_PATH'
 
             def SVC_CONTEXT_PATH = getPropValueFromProperties('service.ingress.context-path')
 
-            sh "sed -e 's|\\$CONTEX_PATH_PARAM|$SVC_CONTEXT_PATH|' -i \\" +
-                    'src/main/devops/ingress.yaml'
+            def keyValuePropsTwo = [
+                    "$CONTEX_PATH_PARAM:$SVC_CONTEXT_PATH",
+                    "$SVC_NAME_PARAM:$SVC_NAME"
+            ]
 
-            sh "cat src/main/devops/ingress.yaml"
+            replaceVariablesInProperties(keyValuePropsTwo, SVC_INGRESS, true)
 
             withKubeConfig([credentialsId: K8S_LOCAL]) {
-                sh "kubectl apply -f src/main/devops/service-nodeport.yaml"
-                sh "kubectl apply -f src/main/devops/ingress.yaml"
+                sh "kubectl apply -f $SVC_SERVICE"
+                sh "kubectl apply -f $SVC_INGRESS"
             }
 
         }
