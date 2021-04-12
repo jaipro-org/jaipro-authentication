@@ -5,12 +5,17 @@ String getPropValueFromProperties(String property) {
             returnStdout: true).trim()
 }
 
-void replaceVariablesInProperties(property, propertyFile) {
+void replaceVariablesInProperties(property, propertyFile, Boolean pipe = false) {
     sh "echo '*** Init replaceVariablesInProperties'"
     def commandString = "sed"
     property.each { item ->
         def keyVal = item.split(':')
-        commandString += " -e \"s/\\${keyVal[0]}/${keyVal[1]}/\""
+        if (pipe) {
+            commandString += " -e \"s/\\${keyVal[0]}/${keyVal[1]}/\""
+        } else {
+            commandString += " -e \"s|\\${keyVal[0]}|${keyVal[1]}|\""
+        }
+
     }
     commandString += " -i $propertyFile"
 
@@ -139,7 +144,7 @@ node {
                     "$SVC_NAME_PARAM:$SVC_NAME"
             ]
 
-            replaceVariablesInProperties(keyValueProps, SVC_DEPLOYMENT)
+            replaceVariablesInProperties(keyValueProps, SVC_DEPLOYMENT, true)
 
             withKubeConfig([credentialsId: K8S_LOCAL]) {
                 sh "kubectl apply -f $SVC_DEPLOYMENT"
