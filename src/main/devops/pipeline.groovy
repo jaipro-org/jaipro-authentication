@@ -5,12 +5,12 @@ String getPropValueFromProperties(String property) {
             returnStdout: true).trim()
 }
 
-void replaceVariablesInProperties(property, propertyFile, Boolean pipe = false) {
+void replaceVariablesInProperties(property, propertyFile, Boolean pipe = null) {
     sh "echo '*** Init replaceVariablesInProperties'"
     def commandString = "sed"
     property.each { item ->
         def keyVal = item.split(':')
-        if (pipe) {
+        if (pipe == null) {
             commandString += " -e \"s/\\${keyVal[0]}/${keyVal[1]}/\""
         } else {
             commandString += " -e \"s|\\${keyVal[0]}|${keyVal[1]}|\""
