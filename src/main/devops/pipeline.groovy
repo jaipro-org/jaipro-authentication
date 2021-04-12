@@ -1,7 +1,4 @@
 String getPropValueFromProperties(String property) {
-    for (int i = 0; i < 3; i++) {
-        sh "echo '>>>>>>>TEST GETPROPVALUEFROMPROPERTIES: $i'"
-    }
     return sh(script: "cat src/main/resources/application.properties " +
             "| grep '$property=' " +
             "| awk -F '$property=' '{print \$2}'",
@@ -138,7 +135,7 @@ node {
             def SVC_NAME_PARAM = '${SVC_NAME}'
 
             def keyValueProps = [
-                    "$IMAGE_PARAM:$SVC_NAME",
+                    "$IMAGE_PARAM:$SVC_IMAGE",
                     "$SVC_NAME_PARAM:$SVC_NAME"
             ]
 
