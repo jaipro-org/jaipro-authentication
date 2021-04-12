@@ -27,7 +27,7 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
-              name: port-${SVC_NAME}
+              name: netty-port
           resources:
             requests:
               cpu: 40m
