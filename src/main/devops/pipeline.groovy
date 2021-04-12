@@ -12,7 +12,8 @@ void replaceVariablesInProperties(property, propertyFile) {
     sh "echo '*** Init replaceVariablesInProperties'"
     def commandString = "sed"
     property.each { item ->
-        commandString += " -e \"s/\\SVC_NAME/$item/\""
+        def keyVal = item.split(':')
+        commandString += " -e \"s/\\${keyVal[0]}/${keyVal[1]}/\""
     }
     commandString += " -i $propertyFile"
 
