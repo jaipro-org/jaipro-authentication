@@ -1,7 +1,7 @@
-def getPropValueFromProperties() {
+String getPropValueFromProperties(String property) {
     return sh(script: "cat src/main/resources/application.properties " +
-            "| grep 'service.ingress.context-path=' " +
-            "| awk -F 'service.ingress.context-path=' '{print \$2}'",
+            "| grep '$property=' " +
+            "| awk -F '$property=' '{print \$2}'",
             returnStdout: true).trim()
 }
 
@@ -128,7 +128,7 @@ node {
 
             def CONTEX_PATH_PARAM = 'SERVICE_INGRESS_CONTEXT_PATH'
 
-            def SVC_CONTEXT_PATH = getPropValueFromProperties()
+            def SVC_CONTEXT_PATH = getPropValueFromProperties('service.ingress.context-path')
 
             sh "sed -e 's|\\$CONTEX_PATH_PARAM|$SVC_CONTEXT_PATH|' -i \\" +
                     'src/main/devops/ingress.yaml'
