@@ -58,7 +58,7 @@ spec:
                 secretKeyRef:
                   name: secret-eureka-authentication
                   key: SPRING_DATA_MONGODB_URI
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
