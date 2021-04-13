@@ -136,7 +136,7 @@ node {
                 "$SVC_JAR_NAME_PARAM:$SVC_NAME-$SVC_VERSION",
         ]
 
-        replaceVariablesInProperties(keyValueProps, "./$SVC_FOLDER/SVC_DOCKERFILE")
+        replaceVariablesInProperties(keyValueProps, "./$SVC_FOLDER/$SVC_DOCKERFILE")
 
         sh "echo 'SVC_VERSION: ${SVC_VERSION}--'"
         sh "docker build " +
