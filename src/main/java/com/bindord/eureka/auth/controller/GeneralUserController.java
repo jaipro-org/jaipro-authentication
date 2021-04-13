@@ -2,11 +2,10 @@ package com.bindord.eureka.auth.controller;
 
 import com.bindord.eureka.auth.advice.CustomValidationException;
 import com.bindord.eureka.auth.advice.NotFoundValidationException;
-import com.bindord.eureka.auth.domain.master.MsProfession;
-import com.bindord.eureka.auth.service.MsProfessionService;
+import com.bindord.eureka.auth.domain.GeneralUser;
+import com.bindord.eureka.auth.service.GeneralUserService;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -15,36 +14,35 @@ import reactor.core.publisher.Mono;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("${service.ingress.context-path}/ms-profession")
-@Slf4j
-public class MsProfessionController {
+@RequestMapping("${service.ingress.context-path}/general-user")
+public class GeneralUserController {
 
-    private final MsProfessionService msProfessionService;
+    private GeneralUserService generalUserService;
 
-    public MsProfessionController(MsProfessionService msProfessionService) {
-        this.msProfessionService = msProfessionService;
+    public GeneralUserController(GeneralUserService generalUserService) {
+        this.generalUserService = generalUserService;
     }
 
-    @ApiResponse(description = "Storage a professional",
+    @ApiResponse(description = "Storage a generalUser",
             responseCode = "200")
     @PostMapping(value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Mono<MsProfession> save(@Valid @RequestBody MsProfession msProfession) throws CustomValidationException, NotFoundValidationException {
-        return msProfessionService.save(msProfession);
+    public Mono<GeneralUser> save(@Valid @RequestBody GeneralUser generalUser) throws CustomValidationException, NotFoundValidationException {
+        return generalUserService.save(generalUser);
     }
 
-    @ApiResponse(description = "Get all professionals",
+    @ApiResponse(description = "Get all generalUsers",
             responseCode = "200")
     @GetMapping(value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.ALL_VALUE})
-    public Flux<MsProfession> getAll() throws CustomValidationException, NotFoundValidationException {
-        return msProfessionService.findAll();
+    public Flux<GeneralUser> getAll() throws CustomValidationException, NotFoundValidationException {
+        return generalUserService.findAll();
     }
 
     @ApiResponses({
-            @ApiResponse(description = "Delete all professionals",
+            @ApiResponse(description = "Delete all generalUsers",
                     responseCode = "200"),
             @ApiResponse(description = "Operation failed",
                     responseCode = "400")
@@ -53,12 +51,6 @@ public class MsProfessionController {
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.ALL_VALUE})
     public Mono<Void> removeAll() throws CustomValidationException, NotFoundValidationException {
-        return msProfessionService.delete();
-    }
-
-    @GetMapping(value = "")
-    public String listarDataDriver() {
-        Flux<MsProfession> workersFlux = msProfessionService.findAll();
-        return "success";
+        return generalUserService.delete();
     }
 }
