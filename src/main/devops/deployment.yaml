@@ -30,7 +30,7 @@ spec:
               name: netty-port
           resources:
             requests:
-              cpu: 40m
+              cpu: 200m
               memory: 200Mi
             limits:
               memory: 600Mi

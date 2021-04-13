@@ -46,9 +46,11 @@ node {
     def SVC_FULLPATH = '/home/ubuntu/jenkins/jenkins_home/workspace' + '/' + JOB_NAME + '/' + SVC_FOLDER
 
     // K8S FILES
-    def SVC_DEPLOYMENT = 'src/main/devops/deployment.yaml'
-    def SVC_SERVICE = 'src/main/devops/service.yaml'
-    def SVC_INGRESS = 'src/main/devops/ingress.yaml'
+    def COMMON_PATH = 'src/main/devops'
+    def SVC_DEPLOYMENT = "$COMMON_PATH/deployment.yaml"
+    def SVC_SERVICE = "$COMMON_PATH/service.yaml"
+    def SVC_INGRESS = "$COMMON_PATH/ingress.yaml"
+    def SVC_HPA = "$COMMON_PATH/hpa.yaml"
 
     //DOCKER REGISTRY PROPS
     def CR_BINDORD_HOST = "peterzinho16"
@@ -178,9 +180,16 @@ node {
 
             replaceVariablesInProperties(keyValuePropsTwo, SVC_INGRESS, true)
 
+            def keyValuePropsThree = [
+                    "$SVC_NAME_PARAM:$SVC_NAME"
+            ]
+
+            replaceVariablesInProperties(keyValuePropsThree, SVC_HPA)
+
             withKubeConfig([credentialsId: K8S_LOCAL]) {
                 sh "kubectl apply -f $SVC_SERVICE"
                 sh "kubectl apply -f $SVC_INGRESS"
+                sh "kubectl apply -f $SVC_HPA"
             }
 
         }
