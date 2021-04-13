@@ -13,11 +13,11 @@ import org.springframework.context.annotation.Configuration;
 public class OpenAPIConfiguration {
 
     @Bean
-    public OpenAPI customOpenAPI(@Value("${springdoc.version}") String appVersion) {
+    public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .components(new Components().addSecuritySchemes("basicScheme",
                         new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic")))
-                .info(new Info().title("Eureka Authentication API").version(appVersion)
+                .info(new Info().title("Eureka Authentication API")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")));
     }
 }
