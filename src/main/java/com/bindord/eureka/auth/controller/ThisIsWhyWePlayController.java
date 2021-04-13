@@ -11,7 +11,7 @@ import reactor.core.publisher.Flux;
 public class ThisIsWhyWePlayController {
 
     @GetMapping(value = "",
-            produces = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.TEXT_PLAIN_VALUE},
             consumes = {MediaType.ALL_VALUE})
     public Flux<String> letsDoThis() {
         return Flux.just("Sky");
