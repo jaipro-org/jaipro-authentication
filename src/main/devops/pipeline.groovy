@@ -55,6 +55,7 @@ node {
     //DOCKER REGISTRY PROPS
     def CR_BINDORD_HOST = "peterzinho16"
     def SVC_IMAGE = ''
+    def SVC_DOCKERFILE = "$COMMON_PATH/Dockerfile"
 
     stage('PRINT VARIABLES') {
         sh "echo 'SVC_REPOSITORY_URL: $SVC_REPOSITORY_URL'"
@@ -128,6 +129,14 @@ node {
                 returnStdout: true).trim()
 
         SVC_IMAGE = "$CR_BINDORD_HOST/$SVC_NAME:$SVC_VERSION"
+
+        def SVC_JAR_NAME_PARAM = '${SVC_JAR_NAME}'
+
+        def keyValueProps = [
+                "$SVC_JAR_NAME_PARAM:$SVC_NAME-$SVC_VERSION",
+        ]
+
+        replaceVariablesInProperties(keyValueProps, SVC_DOCKERFILE)
 
         sh "echo 'SVC_VERSION: ${SVC_VERSION}--'"
         sh "docker build " +
