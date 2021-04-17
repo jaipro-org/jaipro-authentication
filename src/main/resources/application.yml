@@ -5,4 +5,4 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:30054/auth/realms/eureka
+          issuer-uri: http://localhost:30010/auth/realms/eureka
