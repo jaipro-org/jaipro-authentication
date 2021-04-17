@@ -29,6 +29,7 @@ node {
     // FUNDAMENTAL_PROPS
     def GIT_MASTER_CREDENTIALS_ID = 'GITHUB_PPCC'
     def MASTER_FOLDER = 'master'
+    def SECRET_FOLDER = 'secret'
     def DEPLOY_ENV = 'dev'
     def K8S_LOCAL = 'K8S_CONFIG_ID_LOCAL'
     // - BASE PATHS
@@ -91,13 +92,30 @@ node {
             sh "cat $APPLICATION_PROPERTIES_PATH >> $BASE_CONFIGMAP"
             sh "cat $BASE_CONFIGMAP"
         }
+
+        dir(SECRET_FOLDER) {
+            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/secret-properties.git'
+
+            /*def keyValueProps = [
+                    "SVC_NAME:$SVC_NAME",
+                    "PRODUCT_NAME:$PRODUCT_NAME"
+            ]
+            replaceVariablesInProperties(keyValueProps, BASE_CONFIGMAP)
+
+            sh "sed -i 's/^/    /' $APPLICATION_PROPERTIES_PATH"
+            sh "cat $APPLICATION_PROPERTIES_PATH >> $BASE_CONFIGMAP"
+            sh "cat $BASE_CONFIGMAP"*/
+        }
     }
 
-    stage('DEPLOYING CONFIGMAP') {
+    stage('DEPLOYING CONFIGMAP & SECRETS') {
         sh 'echo "INIT K8S...."'
+
+        def BASE_SECRETMAP = "$SVC_NAME-$DEPLOY_ENV"+".yaml"
 
         withKubeConfig([credentialsId: K8S_LOCAL]) {
             sh "kubectl apply -f $MASTER_FOLDER/$BASE_CONFIGMAP"
+            sh "kubectl apply -f $SECRET_FOLDER/$BASE_SECRETMAP"
         }
     }
 
