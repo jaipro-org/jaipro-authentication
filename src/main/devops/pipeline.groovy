@@ -111,7 +111,7 @@ node {
     stage('DEPLOYING CONFIGMAP & SECRETS') {
         sh 'echo "INIT K8S...."'
 
-        def BASE_SECRETMAP = "$SVC_NAME-$DEPLOY_ENV"+".yaml"
+        def BASE_SECRETMAP = "$SVC_NAME/secret-$DEPLOY_ENV"+".yaml"
 
         withKubeConfig([credentialsId: K8S_LOCAL]) {
             sh "kubectl apply -f $MASTER_FOLDER/$BASE_CONFIGMAP"
