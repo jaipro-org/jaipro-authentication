@@ -94,7 +94,7 @@ node {
         }
 
         dir(SECRET_FOLDER) {
-            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/secret-properties.git'
+            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-secrets.git'
 
             /*def keyValueProps = [
                     "SVC_NAME:$SVC_NAME",
