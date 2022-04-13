@@ -4,6 +4,7 @@ import com.bindord.eureka.auth.advice.CustomValidationException;
 import com.bindord.eureka.auth.advice.NotFoundValidationException;
 import com.bindord.eureka.auth.domain.master.MsProfession;
 import com.bindord.eureka.auth.service.MsProfessionService;
+import com.bindord.eureka.auth.validator.Validator;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
@@ -14,15 +15,19 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("${service.ingress.context-path}/ms-profession")
 @Slf4j
 public class MsProfessionController {
 
+    private final Validator validator;
+
     private final MsProfessionService msProfessionService;
 
-    public MsProfessionController(MsProfessionService msProfessionService) {
+    public MsProfessionController(Validator validator, MsProfessionService msProfessionService) {
+        this.validator = validator;
         this.msProfessionService = msProfessionService;
     }
 
@@ -63,4 +68,12 @@ public class MsProfessionController {
         Flux<MsProfession> workersFlux = msProfessionService.findAll();
         return "success";
     }
+
+    @GetMapping(value = "/{id}")
+    public Mono<MsProfession> listarDataDriver(@PathVariable String id) throws NotFoundValidationException {
+        return Mono.fromFuture(validator.validateUUIDFormat(id))
+                .then(msProfessionService.findOne(UUID.fromString(id)));
+
+    }
+
 }

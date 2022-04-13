@@ -53,7 +53,7 @@
             <!--<AppenderRef ref="AppFileAppender"/>-->
             <AppenderRef ref="ConsoleAppender"/>
         </Logger>
-        <Logger name="org.springframework.security" level="trace" additivity="false">
+        <Logger name="org.springframework.security" level="warn" additivity="false">
             <!--<AppenderRef ref="AppFileAppender"/>-->
             <AppenderRef ref="ConsoleAppender"/>
         </Logger>

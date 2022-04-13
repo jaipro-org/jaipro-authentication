@@ -1,6 +1,6 @@
 package com.bindord.eureka.auth.advice;
 
-public class NotFoundValidationException extends Exception{
+public class NotFoundValidationException extends Exception {
 
     private String internalCode;
 

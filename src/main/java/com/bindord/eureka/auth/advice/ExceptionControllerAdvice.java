@@ -21,14 +21,7 @@ public class ExceptionControllerAdvice {
     private static final Logger LOGGER = LogManager.getLogger(ExceptionControllerAdvice.class);
     public static final  String BINDING_ERROR = "Validation has failed";
 
-
-    /*@ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(NotFoundValidationException.class)
-    public @ResponseBody
-    ErrorResponse handlerNotFoundValidationException(NotFoundValidationException ex) {
-        return new ErrorResponse(RESOURCE_NOT_FOUND.get(), ex.getInternalCode());
-    }
-
+    /*
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IllegalArgumentException.class)
@@ -53,6 +46,19 @@ public class ExceptionControllerAdvice {
             errors.add(new ApiSubError(x.getObjectName(), x.getField(), x.getRejectedValue(), x.getDefaultMessage()));
         }
         return Mono.just(new ApiError(HttpStatus.BAD_REQUEST, BINDING_ERROR, errors));
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Mono<ApiError>  handleBindException(IllegalArgumentException ex) {
+        return Mono.just(new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex));
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundValidationException.class)
+    public @ResponseBody
+    Mono<ApiError> handlerNotFoundValidationException(NotFoundValidationException ex) {
+        return Mono.just(new ApiError(HttpStatus.NOT_FOUND, ex));
     }
 }
 

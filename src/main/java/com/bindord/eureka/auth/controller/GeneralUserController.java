@@ -4,6 +4,7 @@ import com.bindord.eureka.auth.advice.CustomValidationException;
 import com.bindord.eureka.auth.advice.NotFoundValidationException;
 import com.bindord.eureka.auth.domain.GeneralUser;
 import com.bindord.eureka.auth.service.GeneralUserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.MediaType;
@@ -32,8 +33,11 @@ public class GeneralUserController {
         return generalUserService.save(generalUser);
     }
 
-    @ApiResponse(description = "Get all generalUsers",
-            responseCode = "200")
+    @Operation(summary = "Recover all general users",
+        responses = {
+                @ApiResponse(description = "Get all generalUsers",
+                        responseCode = "200")
+        })
     @GetMapping(value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.ALL_VALUE})
