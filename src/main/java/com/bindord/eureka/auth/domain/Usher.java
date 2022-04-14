@@ -3,15 +3,15 @@ package com.bindord.eureka.auth.domain;
 import com.bindord.eureka.auth.validation.ExtendedEmailValidator;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.relational.core.mapping.Table;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.UUID;
 
-@Document
 @Data
+@Table
 public class Usher implements Serializable {
 
     @Id

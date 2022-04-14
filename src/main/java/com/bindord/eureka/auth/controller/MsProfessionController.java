@@ -5,6 +5,9 @@ import com.bindord.eureka.auth.advice.NotFoundValidationException;
 import com.bindord.eureka.auth.domain.master.MsProfession;
 import com.bindord.eureka.auth.service.MsProfessionService;
 import com.bindord.eureka.auth.validator.Validator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.r2dbc.postgresql.codec.Json;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
@@ -36,13 +39,16 @@ public class MsProfessionController {
     @PostMapping(value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Mono<MsProfession> save(@Valid @RequestBody MsProfession msProfession) throws CustomValidationException, NotFoundValidationException {
+    public Mono<MsProfession> save(@Valid @RequestBody MsProfession msProfession) throws CustomValidationException, NotFoundValidationException, JsonProcessingException {
+//        msProfession.setTest(Json.of(
+//                "{ \"name\": \"UIEg a\" }")
+//        );
         return msProfessionService.save(msProfession);
     }
 
     @ApiResponse(description = "Get all professionals",
             responseCode = "200")
-    @PreAuthorize("hasRole('ROLE_UMA_AUTHORIZATION')")
+//    @PreAuthorize("hasRole('ROLE_UMA_AUTHORIZATION')")
     @GetMapping(value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.ALL_VALUE})
@@ -73,6 +79,12 @@ public class MsProfessionController {
     public Mono<MsProfession> listarDataDriver(@PathVariable String id) throws NotFoundValidationException {
         return Mono.fromFuture(validator.validateUUIDFormat(id))
                 .then(msProfessionService.findOne(UUID.fromString(id)));
+
+    }
+
+    @GetMapping(value = "/findByName/{name}")
+    public Mono<MsProfession> encontrarPorNombre(@PathVariable String name) throws NotFoundValidationException {
+        return msProfessionService.findByName(name);
 
     }
 

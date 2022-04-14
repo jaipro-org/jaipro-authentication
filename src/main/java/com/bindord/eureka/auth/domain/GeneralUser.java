@@ -4,7 +4,6 @@ import com.bindord.eureka.auth.utils.Utilitarios;
 import com.bindord.eureka.auth.validation.ExtendedEmailValidator;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -14,7 +13,6 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Data
-@Document
 public class GeneralUser implements Serializable {
 
     @Id

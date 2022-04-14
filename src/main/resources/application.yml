@@ -1,3 +1,15 @@
 spring:
   profiles:
-    active: nosec
+    active: dev
+  # R2DBC Driver config
+  r2dbc:
+    url: ${PG_URL}
+    username: ${PG_USER}
+    password: ${PG_PWD}
+    pool:
+      initial-size: 10
+      max-idle-time: 30m
+logging:
+  level:
+    io.r2dbc.postgresql.QUERY: DEBUG # for queries
+    io.r2dbc.postgresql.PARAM: DEBUG # for parameters

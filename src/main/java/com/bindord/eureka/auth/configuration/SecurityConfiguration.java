@@ -23,8 +23,10 @@ public class SecurityConfiguration {
 
     @Bean()
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        http.csrf().disable();
         http
                 .authorizeExchange()
+                .pathMatchers("/eureka/authentication/**").permitAll()
                 .pathMatchers("/actuator/**").permitAll()
                 .anyExchange().authenticated()
                 .and()

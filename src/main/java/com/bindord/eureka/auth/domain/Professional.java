@@ -5,8 +5,7 @@ import com.bindord.eureka.auth.domain.dtofield.ProfIdentity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.relational.core.mapping.Table;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -16,14 +15,13 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-@Document
+@Table
 @EqualsAndHashCode(callSuper = false)
 public class Professional extends BaseDomain {
 
     @Id
     private UUID userId;
 
-    @Field(name = "name")
     @NotBlank
     @Size(min = 3, max = 40)
     @Pattern(regexp = "^[A-Za-z ]{3,40}$")

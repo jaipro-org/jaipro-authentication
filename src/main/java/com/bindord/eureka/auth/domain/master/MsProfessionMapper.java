@@ -1,6 +1,5 @@
 package com.bindord.eureka.auth.domain.master;
 
-import com.bindord.eureka.auth.annotation.JsonClassName;
 import com.bindord.eureka.auth.deserializer.JsonSimpleDeserializer;
 import com.bindord.eureka.auth.deserializer.JsonSimpleSerializer;
 import com.bindord.eureka.auth.domain.base.BaseDomain;
@@ -22,7 +21,7 @@ import java.util.UUID;
 @Data
 @Table
 @EqualsAndHashCode(callSuper = false)
-public class MsProfession extends BaseDomain implements Persistable<UUID> {
+public class MsProfessionMapper extends BaseDomain implements Persistable<UUID> {
 
     @Id
     private UUID id;
@@ -31,10 +30,7 @@ public class MsProfession extends BaseDomain implements Persistable<UUID> {
     private String name;
 
     @Column("test")
-    @JsonDeserialize(using = JsonSimpleDeserializer.class)
-    @JsonSerialize(using = JsonSimpleSerializer.class)
-    @JsonClassName(name = Test.class)
-    private Json test;
+    private Test test;
 
 //    private List<Specialization> specializations;
 

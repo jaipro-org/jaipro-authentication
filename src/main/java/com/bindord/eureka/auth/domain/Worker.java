@@ -3,7 +3,7 @@ package com.bindord.eureka.auth.domain;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.relational.core.mapping.Table;
 
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-@Document(collection = "")
+@Table
 @ToString
 public class Worker {
 
@@ -37,7 +37,8 @@ public class Worker {
 
     private List<Profession> professions;
 
-    public Worker(){}
+    public Worker() {
+    }
 
 
 }
