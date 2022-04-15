@@ -48,23 +48,23 @@ public class MsProfessionServiceImpl extends BaseServiceImpl<MsProfessionReposit
     @Override
     public Mono<MsProfession> findByName(String name) {
 
-        Mono<Connection> connectionMono = Mono.from(connectionFactory.create());
-        return connectionMono.flatMap(cn -> Mono.from(cn.createStatement(
-                                        "select * from ms_profession where name = $1"
-                                ).bind("$1", name)
-                                .execute())
-                        .doFinally((st) -> close(cn)))
-                .map(result -> result.map((row, meta) -> {
-                            MsProfession obj = new MsProfession();
-                    obj.setId(row.get("id", UUID.class));
-                    obj.setName(row.get("name", String.class));
-                    obj.setCreationDate(row.get("creation_date", LocalDateTime.class));
-                    obj.setTest(row.get("test", Json.class));
-                            return obj;
-                        }
-                )).flatMap(Mono::from);
+//        Mono<Connection> connectionMono = Mono.from(connectionFactory.create());
+//        return connectionMono.flatMap(cn -> Mono.from(cn.createStatement(
+//                                        "select * from ms_profession where name = $1"
+//                                ).bind("$1", name)
+//                                .execute())
+//                        .doFinally((st) -> close(cn)))
+//                .map(result -> result.map((row, meta) -> {
+//                            MsProfession obj = new MsProfession();
+//                    obj.setId(row.get("id", UUID.class));
+//                    obj.setName(row.get("name", String.class));
+//                    obj.setCreationDate(row.get("creation_date", LocalDateTime.class));
+//                    obj.setTest(row.get("test", Json.class));
+//                            return obj;
+//                        }
+//                )).flatMap(Mono::from);
 
-//        return repository.findByName(name);
+        return repository.findByName(name);
     }
 
     private <T> Mono<T> close(Connection connection) {
