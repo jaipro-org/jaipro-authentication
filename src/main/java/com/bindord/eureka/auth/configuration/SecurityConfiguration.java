@@ -26,7 +26,7 @@ public class SecurityConfiguration {
         http.csrf().disable();
         http
                 .authorizeExchange()
-                .pathMatchers("/eureka/authentication/**").permitAll()
+//                .pathMatchers("/eureka/authentication/**").permitAll()
                 .pathMatchers("/actuator/**").permitAll()
                 .anyExchange().authenticated()
                 .and()

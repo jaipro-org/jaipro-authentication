@@ -1,9 +1,11 @@
+/*
 package com.bindord.eureka.auth.configuration;
 
 import com.bindord.eureka.auth.domain.base.BaseDomain;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.relational.core.mapping.event.AbstractRelationalEventListener;
 import org.springframework.data.relational.core.mapping.event.BeforeConvertEvent;
+import org.springframework.data.relational.core.mapping.event.BeforeSaveEvent;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -26,4 +28,14 @@ public class BeforeConvertListener extends AbstractRelationalEventListener<BaseD
         bsDom.setModifiedBy(null);
         bsDom.setModifiedDate(null);
     }
+
+    @Override
+    protected void onBeforeSave(BeforeSaveEvent<BaseDomain> event) {
+        BaseDomain bsDom = (BaseDomain) event.getSource();
+        if (Objects.isNull(bsDom.getCreationDate())) {
+            bsDom.setCreationDate(LocalDateTime.now());
+        }
+        super.onBeforeSave(event);
+    }
 }
+*/

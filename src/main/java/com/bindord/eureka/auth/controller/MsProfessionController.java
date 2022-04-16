@@ -2,6 +2,7 @@ package com.bindord.eureka.auth.controller;
 
 import com.bindord.eureka.auth.advice.CustomValidationException;
 import com.bindord.eureka.auth.advice.NotFoundValidationException;
+import com.bindord.eureka.auth.configuration.CustomUserDetails;
 import com.bindord.eureka.auth.domain.master.MsProfession;
 import com.bindord.eureka.auth.service.MsProfessionService;
 import com.bindord.eureka.auth.validator.Validator;
@@ -13,6 +14,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -36,19 +40,21 @@ public class MsProfessionController {
 
     @ApiResponse(description = "Storage a professional",
             responseCode = "200")
+//    @PreAuthorize("hasRole('ROLE_UMA_AUTHORIZATION')")
     @PostMapping(value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Mono<MsProfession> save(@Valid @RequestBody MsProfession msProfession) throws CustomValidationException, NotFoundValidationException, JsonProcessingException {
-//        msProfession.setTest(Json.of(
-//                "{ \"name\": \"UIEg a\" }")
-//        );
-        return msProfessionService.save(msProfession);
+        return ReactiveSecurityContextHolder.getContext()
+                .map(SecurityContext::getAuthentication)
+                .filter(Authentication::isAuthenticated)
+                .doOnSuccess(obj -> System.out.println(((CustomUserDetails) obj.getPrincipal()).getUsername()))
+                .then(msProfessionService.save(msProfession));
     }
 
     @ApiResponse(description = "Get all professionals",
             responseCode = "200")
-//    @PreAuthorize("hasRole('ROLE_UMA_AUTHORIZATION')")
+    @PreAuthorize("hasRole('ROLE_UMA_AUTHORIZATION')")
     @GetMapping(value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.ALL_VALUE})

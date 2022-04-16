@@ -11,8 +11,6 @@ import io.r2dbc.postgresql.codec.Json;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -22,7 +20,7 @@ import java.util.UUID;
 @Data
 @Table
 @EqualsAndHashCode(callSuper = false)
-public class MsProfession extends BaseDomain implements Persistable<UUID> {
+public class MsProfession extends BaseDomain {
 
     @Id
     private UUID id;
@@ -37,15 +35,5 @@ public class MsProfession extends BaseDomain implements Persistable<UUID> {
     private Json test;
 
 //    private List<Specialization> specializations;
-
-    @Transient
-    private boolean newMsProfession;
-
-    @Override
-    public boolean isNew() {
-        return this.newMsProfession || id == null;
-    }
-
-//    private io.r2dbc.postgresql.codec.Json json;
 
 }

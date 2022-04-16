@@ -53,8 +53,8 @@ public class BankServiceImpl {
                         }
                 )).flatMap(Mono::from);*/
 
-        return databaseClient.sql("select * from bank_dynamic_where(:sortColumn, :2, :3, :4, :5, :6)")
-                .bind("sortColumn", fromOrEmpty(query.getSortColumn(), String.class))
+        return databaseClient.sql("select * from bank_dynamic_where(:1, :2, :3, :4, :5, :6)")
+                .bind("1", fromOrEmpty(query.getSortColumn(), String.class))
                 .bind("2", fromOrEmpty(query.getSortDirection(), String.class))
                 .bind("3", fromOrEmpty(query.getLimit(), Integer.class))
                 .bind("4", fromOrEmpty(query.getOffset(), Integer.class))

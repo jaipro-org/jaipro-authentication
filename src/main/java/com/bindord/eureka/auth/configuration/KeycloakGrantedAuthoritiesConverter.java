@@ -22,11 +22,11 @@ public class KeycloakGrantedAuthoritiesConverter implements Converter<Jwt, Mono<
 
     @Override
     public Mono<AbstractAuthenticationToken> convert(Jwt jwt) {
-        Collection<GrantedAuthority> authorities = grantedAuthorityCollection(jwt);
+        Collection<GrantedAuthority> authorities = this.grantedAuthorityCollection(jwt);
 
         CustomUserDetails customUserDetails = new CustomUserDetails(
                 jwt.getClaim("email"), "", true, true,
-                true, true, Collections.emptyList());
+                true, true, authorities);
         customUserDetails.setRenwo(jwt.getClaim("sub"));
 
         return Mono.just(
