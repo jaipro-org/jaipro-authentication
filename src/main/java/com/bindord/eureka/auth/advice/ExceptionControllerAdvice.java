@@ -1,9 +1,7 @@
 package com.bindord.eureka.auth.advice;
 
-import com.bindord.eureka.auth.domain.response.ApiError;
-import com.bindord.eureka.auth.domain.response.ApiSubError;
-import com.bindord.eureka.auth.domain.response.ApiError;
-import com.bindord.eureka.auth.domain.response.ApiSubError;
+import com.bindord.eureka.auth.domain.exception.ApiError;
+import com.bindord.eureka.auth.domain.exception.ApiSubError;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;

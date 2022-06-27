@@ -1,4 +1,4 @@
-package com.bindord.eureka.auth.domain.response;
+package com.bindord.eureka.auth.domain.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

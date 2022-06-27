@@ -119,7 +119,6 @@
             <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-webflux-ui -->
         <dependency>
             <groupId>org.springdoc</groupId>

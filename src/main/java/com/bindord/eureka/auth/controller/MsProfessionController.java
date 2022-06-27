@@ -44,12 +44,15 @@ public class MsProfessionController {
     @PostMapping(value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Mono<MsProfession> save(@Valid @RequestBody MsProfession msProfession) throws CustomValidationException, NotFoundValidationException, JsonProcessingException {
-        return ReactiveSecurityContextHolder.getContext()
-                .map(SecurityContext::getAuthentication)
-                .filter(Authentication::isAuthenticated)
-                .doOnSuccess(obj -> System.out.println(((CustomUserDetails) obj.getPrincipal()).getUsername()))
+    public Mono<MsProfession> save(@Valid @RequestBody MsProfession msProfession, Authentication authentication) throws CustomValidationException, NotFoundValidationException, JsonProcessingException {
+        return Mono.just(authentication.getPrincipal())
+                .doOnSuccess(obj -> System.out.println(((CustomUserDetails)obj).getRenwo()))
                 .then(msProfessionService.save(msProfession));
+//        return ReactiveSecurityContextHolder.getContext()
+//                .map(SecurityContext::getAuthentication)
+//                .filter(Authentication::isAuthenticated)
+//                .doOnSuccess(obj -> System.out.println(((CustomUserDetails) obj.getPrincipal()).getUsername()))
+//                .then(msProfessionService.save(msProfession));
     }
 
     @ApiResponse(description = "Get all professionals",

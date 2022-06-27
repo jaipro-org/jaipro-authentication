@@ -9,7 +9,3 @@ spring:
     pool:
       initial-size: 10
       max-idle-time: 30m
-logging:
-  level:
-    io.r2dbc.postgresql.QUERY: DEBUG # for queries
-    io.r2dbc.postgresql.PARAM: DEBUG # for parameters

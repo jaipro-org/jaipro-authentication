@@ -1,4 +1,4 @@
-package com.bindord.eureka.auth.domain.response;
+package com.bindord.eureka.auth.domain.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
