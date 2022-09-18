@@ -1,28 +1,17 @@
 package com.bindord.eureka.auth.domain.base;
 
 import lombok.Data;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.annotation.ReadOnlyProperty;
-import org.springframework.data.relational.core.mapping.Column;
-
 import java.time.LocalDateTime;
 
 @Data
 public class BaseDomain {
 
-    @CreatedBy
     private String createdBy;
 
-    @CreatedDate
     private LocalDateTime creationDate;
 
-    @LastModifiedBy
     private String modifiedBy;
 
-    @LastModifiedDate
     private LocalDateTime modifiedDate;
 
     public BaseDomain() {

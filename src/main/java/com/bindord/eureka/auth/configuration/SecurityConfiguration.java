@@ -12,7 +12,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 @Configuration
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
-@Profile(value = "!nosec")
 public class SecurityConfiguration {
 
     @Value("${service.ingress.context-path}")
@@ -21,12 +20,29 @@ public class SecurityConfiguration {
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri:#{null}}")
     private String jwtIssuerURI;
 
-    @Bean()
+    @Value("${spring.profiles.active}")
+    private String profile;
+
+    @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.csrf().disable();
+        if (profile.equals("nosec")) {
+            http
+                    .authorizeExchange()
+                    .pathMatchers("/**").permitAll()
+                    .anyExchange().authenticated()
+                    .and()
+                    .oauth2ResourceServer()
+                    .jwt()
+                    .jwtAuthenticationConverter(keycloakGrantedAuthoritiesConverter());
+            return http.build();
+        }
         http
                 .authorizeExchange()
 //                .pathMatchers("/eureka/authentication/**").permitAll()
+                .pathMatchers("/webjars/**").permitAll()
+                .pathMatchers("/swagger**").permitAll()
+                .pathMatchers("/v3/**").permitAll()
                 .pathMatchers("/actuator/**").permitAll()
                 .anyExchange().authenticated()
                 .and()

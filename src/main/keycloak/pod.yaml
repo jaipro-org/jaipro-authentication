@@ -21,6 +21,10 @@ spec:
           value: admin
         - name: KEYCLOAK_PASSWORD
           value: admin
+        - name: KEYCLOAK_LOGLEVEL
+          value: INFO
+        - name: WILDFLY_LOGLEVEL
+          value: INFO
       image: jboss/keycloak:latest
       name: keycloak
       ports:
