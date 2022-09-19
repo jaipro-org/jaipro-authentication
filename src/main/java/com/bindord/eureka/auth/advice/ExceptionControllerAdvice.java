@@ -75,6 +75,12 @@ public class ExceptionControllerAdvice {
         for (int i = 0; i < lenStackTrace; i++) {
             LOGGER.warn(ex.getStackTrace()[i].toString());
         }
+        if (ex.getRawStatusCode() == HttpStatus.UNAUTHORIZED.value()) {
+            var err = new ErrorResponse();
+            err.code(String.valueOf(HttpStatus.UNAUTHORIZED.value()));
+            err.setMessage(ex.getMessage());
+            return err;
+        }
         return mapper.readValue(ex.getResponseBodyAsString(), ErrorResponse.class);
     }
 }

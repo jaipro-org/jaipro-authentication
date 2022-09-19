@@ -11,12 +11,10 @@ import com.bindord.resourceserver.model.Customer;
 import com.bindord.resourceserver.model.CustomerDto;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.net.URI;
 import java.util.UUID;
 
 @Service
@@ -26,9 +24,6 @@ public class CustomerServiceImpl implements CustomerService {
     private final KeycloakClientConfiguration keycloakClient;
 
     private final ResourceServerClientConfiguration resourceServerClientConfiguration;
-
-    private ClientProperties clientProperties;
-
 
     @Override
     public Mono<Customer> save(CustomerPersist customer) {
@@ -43,10 +38,9 @@ public class CustomerServiceImpl implements CustomerService {
     private Mono<Customer> doRegisterCustomer(CustomerDto customer) {
         return resourceServerClientConfiguration.init()
                 .post()
-                .uri(new URI(clientProperties.getResourceServer().getUrl() + "/customer"))
+                .uri("/customer")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-//                .header("Authorization", authBearer)
                 .body(Mono.just(customer), CustomerDto.class)
                 .retrieve()
                 .bodyToMono(Customer.class);

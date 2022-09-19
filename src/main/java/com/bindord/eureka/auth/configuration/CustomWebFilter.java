@@ -6,6 +6,7 @@ import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
+import reactor.util.context.Context;
 
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class CustomWebFilter implements WebFilter {
 
     private static final Logger LOGGER = LogManager.getLogger(CustomWebFilter.class);
 
-    private Set<String> headers;
+    private final Set<String> headers;
 
     public CustomWebFilter(Set<String> headers) {
         this.headers = headers;
@@ -23,18 +24,19 @@ public class CustomWebFilter implements WebFilter {
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain webFilterChain) {
         var path = exchange.getRequest().getPath().value();
         if (!path.startsWith("/actuator")) {
-            LOGGER.info("Endpoint >>> " + path);
+            LOGGER.debug("Endpoint >>> " + path);
         }
         return webFilterChain.filter(exchange).contextWrite(ctx -> {
-            var updatedContext = ctx;
+            final Context[] updatedContext = {ctx};
 
             exchange.getRequest().getHeaders().forEach((key, value) -> {
-                if (headers.contains(key)) {
-                    LOGGER.info("Found HeadersCommon Header - key {} - value {}", key, value.get(0));
-                    updatedContext.put(key, value.get(0));
+                String keyLower = key.toLowerCase();
+                if (headers.contains(keyLower)) {
+                    LOGGER.debug("Found HeadersCommon Header - key {} - value {}", key, value.get(0));
+                    updatedContext[0] = updatedContext[0].put(keyLower, value.get(0));
                 }
             });
-            return updatedContext;
+            return updatedContext[0];
         });
     }
 }

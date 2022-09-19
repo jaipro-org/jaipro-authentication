@@ -23,14 +23,12 @@ public class CustomClientResponseMono extends Mono<ClientResponse> {
         var context = subscriber.currentContext();
 
         var requestBuilder = ClientRequest.from(request);
-        requestBuilder.headers(httpHeaders -> {
-            headersToPropagate.forEach(it -> {
-                if (context.hasKey(it)) {
-                    log.info("Propagating header key {} - value{}", it, context.get(it));
-                    httpHeaders.put(it, context.get(it));
-                }
-            });
-        });
+        requestBuilder.headers(httpHeaders -> headersToPropagate.forEach(it -> {
+            if (context.hasKey(it)) {
+                log.debug("Propagating header key {} - value {}", it, context.get(it));
+                httpHeaders.add(it, context.get(it));
+            }
+        }));
         var mutatedRequest = requestBuilder.build();
         next.exchange(mutatedRequest).subscribe(subscriber);
     }

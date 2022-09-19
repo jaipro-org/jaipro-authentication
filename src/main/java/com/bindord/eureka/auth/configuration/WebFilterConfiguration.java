@@ -6,19 +6,19 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.WebFilter;
 
 @Configuration
-public class OpenTracingConfiguration {
+public class WebFilterConfiguration {
 
     private HeadersCommon headersCommon;
 
-    public OpenTracingConfiguration(HeadersCommon headersCommon) {
+    public WebFilterConfiguration(HeadersCommon headersCommon) {
         this.headersCommon = headersCommon;
     }
 
     @Bean
-    public WebClient webClient() {
+    public WebClient.Builder webClient() {
         return WebClient.builder().filter(
                 this.openTracingExchangeFilterFunction()
-        ).build();
+        );
     }
 
     @Bean

@@ -4,14 +4,12 @@ import com.bindord.eureka.auth.domain.CustomerPersist;
 import com.bindord.eureka.auth.service.CustomerService;
 import com.bindord.eureka.auth.validator.Validator;
 import com.bindord.resourceserver.model.Customer;
-import com.bindord.resourceserver.model.CustomerDto;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
@@ -33,8 +31,7 @@ public class CustomerController {
     @PostMapping(value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Mono<Customer> save(@Valid @RequestBody CustomerPersist customer/*,
-                               @RequestHeader(name = "Authorization") String bearer*/) {
+    public Mono<Customer> save(@Valid @RequestBody CustomerPersist customer) {
         return customerService.save(customer);
     }
 

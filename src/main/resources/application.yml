@@ -18,8 +18,10 @@ eureka:
 
   propagate:
     headers:
-      - Authorization
-      - xwhatever
+      - authorization
+      - request-id
+      - service-caller
+      - country-origin
 
 server:
   port: 9010
