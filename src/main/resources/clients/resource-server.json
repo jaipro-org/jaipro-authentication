@@ -15,19 +15,26 @@
     }
   ],
   "paths": {
-    "/eureka/resource-server/v1/district": {
+    "/eureka/resource-server/v1/work-location": {
       "get": {
         "tags": [
-          "district-controller"
+          "work-location-controller"
         ],
         "operationId": "findAll",
         "responses": {
-          "409": {
-            "description": "Conflict",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
                 }
               }
             }
@@ -42,6 +49,47 @@
               }
             }
           },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "List workLocations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WorkLocation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "work-location-controller"
+        ],
+        "operationId": "update",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkLocationDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
           "400": {
             "description": "Bad Request",
             "content": {
@@ -55,6 +103,528 @@
                       "$ref": "#/components/schemas/ApiError"
                     }
                   ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Update a workLocation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkLocation"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "work-location-controller"
+        ],
+        "operationId": "save",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkLocationDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persist a workLocation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkLocation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist-specialization": {
+      "get": {
+        "tags": [
+          "specialist-specialization-controller"
+        ],
+        "operationId": "findAll_1",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "List workLocations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SpecialistSpecialization"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "specialist-specialization-controller"
+        ],
+        "operationId": "update_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecialistSpecializationDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Update a workLocation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpecialistSpecialization"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "specialist-specialization-controller"
+        ],
+        "operationId": "save_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecialistSpecializationDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persist a workLocation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpecialistSpecialization"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist": {
+      "get": {
+        "tags": [
+          "specialist-controller"
+        ],
+        "operationId": "findAll_2",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "List specialists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Specialist"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "specialist-controller"
+        ],
+        "operationId": "update_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecialistUpdateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Update a specialist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Specialist"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "specialist-controller"
+        ],
+        "operationId": "save_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecialistDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persist a specialist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Specialist"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/district": {
+      "get": {
+        "tags": [
+          "district-controller"
+        ],
+        "operationId": "findAll_3",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -78,7 +648,7 @@
         "tags": [
           "district-controller"
         ],
-        "operationId": "update",
+        "operationId": "update_3",
         "requestBody": {
           "content": {
             "application/json": {
@@ -90,12 +660,19 @@
           "required": true
         },
         "responses": {
-          "409": {
-            "description": "Conflict",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
                 }
               }
             }
@@ -110,19 +687,12 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "409": {
+            "description": "Conflict",
             "content": {
               "*/*": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -143,7 +713,7 @@
         "tags": [
           "district-controller"
         ],
-        "operationId": "save",
+        "operationId": "save_3",
         "requestBody": {
           "content": {
             "application/json": {
@@ -155,12 +725,19 @@
           "required": true
         },
         "responses": {
-          "409": {
-            "description": "Conflict",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
                 }
               }
             }
@@ -175,19 +752,12 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "409": {
+            "description": "Conflict",
             "content": {
               "*/*": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -210,14 +780,21 @@
         "tags": [
           "customer-controller"
         ],
-        "operationId": "findAll_1",
+        "operationId": "findAll_4",
         "responses": {
-          "409": {
-            "description": "Conflict",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
                 }
               }
             }
@@ -232,19 +809,12 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "409": {
+            "description": "Conflict",
             "content": {
               "*/*": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -268,7 +838,7 @@
         "tags": [
           "customer-controller"
         ],
-        "operationId": "update_1",
+        "operationId": "update_4",
         "requestBody": {
           "content": {
             "application/json": {
@@ -280,12 +850,19 @@
           "required": true
         },
         "responses": {
-          "409": {
-            "description": "Conflict",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
                 }
               }
             }
@@ -300,19 +877,12 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "409": {
+            "description": "Conflict",
             "content": {
               "*/*": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -333,7 +903,7 @@
         "tags": [
           "customer-controller"
         ],
-        "operationId": "save_1",
+        "operationId": "save_4",
         "requestBody": {
           "content": {
             "application/json": {
@@ -345,12 +915,19 @@
           "required": true
         },
         "responses": {
-          "409": {
-            "description": "Conflict",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
                 }
               }
             }
@@ -365,19 +942,12 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "409": {
+            "description": "Conflict",
             "content": {
               "*/*": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -400,14 +970,21 @@
         "tags": [
           "country-controller"
         ],
-        "operationId": "findAll_2",
+        "operationId": "findAll_5",
         "responses": {
-          "409": {
-            "description": "Conflict",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
                 }
               }
             }
@@ -422,19 +999,12 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "409": {
+            "description": "Conflict",
             "content": {
               "*/*": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -458,7 +1028,7 @@
         "tags": [
           "country-controller"
         ],
-        "operationId": "update_2",
+        "operationId": "update_5",
         "requestBody": {
           "content": {
             "application/json": {
@@ -470,12 +1040,19 @@
           "required": true
         },
         "responses": {
-          "409": {
-            "description": "Conflict",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
                 }
               }
             }
@@ -490,19 +1067,12 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "409": {
+            "description": "Conflict",
             "content": {
               "*/*": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -523,7 +1093,7 @@
         "tags": [
           "country-controller"
         ],
-        "operationId": "save_2",
+        "operationId": "save_5",
         "requestBody": {
           "content": {
             "application/json": {
@@ -535,12 +1105,19 @@
           "required": true
         },
         "responses": {
-          "409": {
-            "description": "Conflict",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
                 }
               }
             }
@@ -555,19 +1132,12 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "409": {
+            "description": "Conflict",
             "content": {
               "*/*": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -585,19 +1155,39 @@
         }
       }
     },
-    "/eureka/resource-server/v1/this-is-why-we-play": {
-      "get": {
+    "/eureka/resource-server/v1/work-location/list": {
+      "post": {
         "tags": [
-          "this-is-why-we-play-controller"
+          "work-location-controller"
         ],
-        "operationId": "letsDoThis",
+        "operationId": "saveAll",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/WorkLocation"
+                }
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
-          "409": {
-            "description": "Conflict",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
                 }
               }
             }
@@ -612,6 +1202,52 @@
               }
             }
           },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persist many workLocations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WorkLocation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist-specialization/list": {
+      "post": {
+        "tags": [
+          "specialist-specialization-controller"
+        ],
+        "operationId": "saveAll_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SpecialistSpecialization"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
           "400": {
             "description": "Bad Request",
             "content": {
@@ -625,6 +1261,157 @@
                       "$ref": "#/components/schemas/ApiError"
                     }
                   ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persist many workLocations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SpecialistSpecialization"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/work-location/{id}": {
+      "get": {
+        "tags": [
+          "work-location-controller"
+        ],
+        "operationId": "findAllBySpecialistId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "FindAll by SpecialistId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WorkLocation"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/this-is-why-we-play": {
+      "get": {
+        "tags": [
+          "this-is-why-we-play-controller"
+        ],
+        "operationId": "letsDoThis",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -645,10 +1432,10 @@
         }
       }
     },
-    "/eureka/resource-server/v1/customer/{id}": {
+    "/eureka/resource-server/v1/specialist/{id}": {
       "get": {
         "tags": [
-          "customer-controller"
+          "specialist-controller"
         ],
         "operationId": "findById",
         "parameters": [
@@ -663,12 +1450,19 @@
           }
         ],
         "responses": {
-          "409": {
-            "description": "Conflict",
+          "400": {
+            "description": "Bad Request",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
                 }
               }
             }
@@ -683,6 +1477,47 @@
               }
             }
           },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Find by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Specialist"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist-specialization/{id}": {
+      "get": {
+        "tags": [
+          "specialist-specialization-controller"
+        ],
+        "operationId": "findAllBySpecialistId_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
           "400": {
             "description": "Bad Request",
             "content": {
@@ -696,6 +1531,97 @@
                       "$ref": "#/components/schemas/ApiError"
                     }
                   ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "FindAll by SpecialistId",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SpecialistSpecialization"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/customer/{id}": {
+      "get": {
+        "tags": [
+          "customer-controller"
+        ],
+        "operationId": "findById_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -716,17 +1642,6 @@
   },
   "components": {
     "schemas": {
-      "ErrorResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          }
-        }
-      },
       "ApiError": {
         "type": "object",
         "properties": {
@@ -835,6 +1750,282 @@
           },
           "message": {
             "type": "string"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          }
+        }
+      },
+      "WorkLocationDto": {
+        "required": [
+          "countryId",
+          "districtId",
+          "specialistId"
+        ],
+        "type": "object",
+        "properties": {
+          "specialistId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "districtId": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "countryId": {
+            "type": "string"
+          }
+        }
+      },
+      "WorkLocation": {
+        "required": [
+          "countryId",
+          "districtId"
+        ],
+        "type": "object",
+        "properties": {
+          "specialistId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "districtId": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "countryId": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "SpecialistSpecializationDto": {
+        "required": [
+          "professionId",
+          "specialistId",
+          "specializationId"
+        ],
+        "type": "object",
+        "properties": {
+          "specialistId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "specializationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "professionId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "SpecialistSpecialization": {
+        "required": [
+          "professionId",
+          "specializationId"
+        ],
+        "type": "object",
+        "properties": {
+          "specialistId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "specializationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "professionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "Rating": {
+        "required": [
+          "calification",
+          "clientName",
+          "serviceId"
+        ],
+        "type": "object",
+        "properties": {
+          "calification": {
+            "minimum": 1,
+            "type": "number",
+            "format": "float"
+          },
+          "comment": {
+            "maxLength": 250,
+            "minLength": 9,
+            "type": "string"
+          },
+          "clientName": {
+            "maxLength": 72,
+            "minLength": 9,
+            "type": "string"
+          },
+          "serviceId": {
+            "maxLength": 2147483647,
+            "minLength": 36,
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SpecialistUpdateDto": {
+        "required": [
+          "address",
+          "lastName",
+          "name",
+          "phone"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "maxLength": 36,
+            "minLength": 2,
+            "type": "string"
+          },
+          "lastName": {
+            "maxLength": 36,
+            "minLength": 2,
+            "type": "string"
+          },
+          "address": {
+            "maxLength": 127,
+            "minLength": 2,
+            "type": "string"
+          },
+          "phone": {
+            "maxLength": 15,
+            "minLength": 9,
+            "type": "string"
+          },
+          "ratings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Rating"
+            }
+          },
+          "districtId": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          }
+        }
+      },
+      "Json": {
+        "type": "object"
+      },
+      "Specialist": {
+        "required": [
+          "address",
+          "document",
+          "email",
+          "lastName",
+          "name",
+          "phone",
+          "publicUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "createdBy": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "maxLength": 36,
+            "minLength": 2,
+            "type": "string"
+          },
+          "lastName": {
+            "maxLength": 36,
+            "minLength": 2,
+            "type": "string"
+          },
+          "identity": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "gender": {
+            "maximum": 2,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "maxLength": 127,
+            "minLength": 2,
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 60,
+            "minLength": 7,
+            "type": "string"
+          },
+          "document": {
+            "maxLength": 12,
+            "minLength": 8,
+            "type": "string"
+          },
+          "phone": {
+            "maxLength": 15,
+            "minLength": 9,
+            "type": "string"
+          },
+          "publicUrl": {
+            "maxLength": 127,
+            "minLength": 7,
+            "type": "string"
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "ratings": {
+            "$ref": "#/components/schemas/Json"
+          },
+          "districtId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -1067,9 +2258,6 @@
           }
         }
       },
-      "Json": {
-        "type": "object"
-      },
       "CountryUpdateDto": {
         "type": "object",
         "properties": {
@@ -1128,6 +2316,84 @@
             "minLength": 3,
             "type": "string",
             "description": "Numeric code from ISO 3166-1"
+          }
+        }
+      },
+      "SpecialistDto": {
+        "required": [
+          "address",
+          "document",
+          "email",
+          "lastName",
+          "name",
+          "phone",
+          "publicUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "maxLength": 36,
+            "minLength": 2,
+            "type": "string"
+          },
+          "lastName": {
+            "maxLength": 36,
+            "minLength": 2,
+            "type": "string"
+          },
+          "identity": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "gender": {
+            "maximum": 2,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "maxLength": 127,
+            "minLength": 2,
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 60,
+            "minLength": 7,
+            "type": "string"
+          },
+          "document": {
+            "maxLength": 12,
+            "minLength": 8,
+            "type": "string"
+          },
+          "phone": {
+            "maxLength": 15,
+            "minLength": 9,
+            "type": "string"
+          },
+          "publicUrl": {
+            "maxLength": 127,
+            "minLength": 7,
+            "type": "string"
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "ratings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Rating"
+            }
+          },
+          "districtId": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
           }
         }
       },
@@ -1205,8 +2471,7 @@
           "email": {
             "maxLength": 60,
             "minLength": 7,
-            "type": "string",
-            "example": "pedropablo.182@gmail.com"
+            "type": "string"
           },
           "document": {
             "maxLength": 12,
