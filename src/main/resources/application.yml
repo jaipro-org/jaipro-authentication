@@ -1,3 +1,28 @@
 spring:
   profiles:
-    active: nosec
+    active: debug
+
+eureka:
+  services:
+    eureka-clients:
+      keycloak-auth:
+        url: http://localhost:8090/eureka/keycloak-auth/v1
+        readTimeout: 7000
+        writeTimeout: 1000
+        connectionTimeout: 300
+      resource-server:
+        url: http://localhost:8080/eureka/resource-server/v1
+        readTimeout: 7000
+        writeTimeout: 1000
+        connectionTimeout: 300
+
+  propagate:
+    headers:
+      - authorization
+      - request-id
+      - service-caller
+      - country-origin
+
+server:
+  port: 9010
+

@@ -1,7 +1,6 @@
 package com.bindord.eureka.auth.domain.base;
 
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Data

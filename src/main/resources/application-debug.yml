@@ -6,4 +6,4 @@ spring:
           issuer-uri: http://host.docker.internal:30010/auth/realms/eureka
 
 logging:
-  config: classpath:log4j2-dev-spring.xml
+  config: classpath:log4j2-debug-spring.xml

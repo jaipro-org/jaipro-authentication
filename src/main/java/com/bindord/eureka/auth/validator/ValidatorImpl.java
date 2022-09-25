@@ -7,6 +7,7 @@ import java.util.concurrent.CompletableFuture;
 
 @Component
 public class ValidatorImpl implements Validator {
+
     @Override
     public CompletableFuture<Void> validateUUIDFormat(String uuid) {
         int len = uuid.length();

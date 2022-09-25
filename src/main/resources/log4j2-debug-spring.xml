@@ -53,6 +53,10 @@
             <!--<AppenderRef ref="AppFileAppender"/>-->
             <AppenderRef ref="ConsoleAppender"/>
         </Logger>
+        <Logger name="com.bindord.eureka.auth.configuration" level="debug" additivity="false">
+            <!--<AppenderRef ref="AppFileAppender"/>-->
+            <AppenderRef ref="ConsoleAppender"/>
+        </Logger>
         <Logger name="org.springframework.security" level="warn" additivity="false">
             <!--<AppenderRef ref="AppFileAppender"/>-->
             <AppenderRef ref="ConsoleAppender"/>
