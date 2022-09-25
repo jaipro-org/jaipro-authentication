@@ -1,6 +1,6 @@
 package com.bindord.eureka.auth.wsc;
 
-import com.bindord.eureka.auth.configuration.ClientProperties;
+import com.bindord.eureka.auth.configuration.props.ClientProperties;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;

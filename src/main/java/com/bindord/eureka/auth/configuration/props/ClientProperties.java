@@ -1,4 +1,4 @@
-package com.bindord.eureka.auth.configuration;
+package com.bindord.eureka.auth.configuration.props;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -2,7 +2,7 @@ package com.bindord.eureka.auth.advice;
 
 import com.bindord.eureka.auth.domain.exception.ApiError;
 import com.bindord.eureka.auth.domain.exception.ApiSubError;
-import com.bindord.resourceserver.model.ErrorResponse;
+import com.bindord.eureka.auth.domain.exception.ErrorResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
@@ -68,7 +68,7 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(WebClientResponseException.class)
     public @ResponseBody
-    ErrorResponse handlerWebClientResponseException(WebClientResponseException ex)
+    Mono<ErrorResponse> handlerWebClientResponseException(WebClientResponseException ex)
             throws JsonProcessingException {
         LOGGER.warn(ex.getMessage());
         var lenStackTrace = ex.getStackTrace().length;
@@ -77,11 +77,22 @@ public class ExceptionControllerAdvice {
         }
         if (ex.getRawStatusCode() == HttpStatus.UNAUTHORIZED.value()) {
             var err = new ErrorResponse();
-            err.code(String.valueOf(HttpStatus.UNAUTHORIZED.value()));
+            err.setCode(String.valueOf(HttpStatus.UNAUTHORIZED.value()));
             err.setMessage(ex.getMessage());
-            return err;
+            return Mono.just(err);
         }
-        return mapper.readValue(ex.getResponseBodyAsString(), ErrorResponse.class);
+        return Mono.just(mapper.readValue(ex.getResponseBodyAsString(), ErrorResponse.class));
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(CustomValidationException.class)
+    public @ResponseBody
+    Mono<ErrorResponse> handlerCustomValidationException(CustomValidationException ex) {
+        LOGGER.warn(ex.getMessage());
+        for (int i = 0; i < ex.getStackTrace().length; i++) {
+            LOGGER.warn(ex.getStackTrace()[i].toString());
+        }
+        return Mono.just(new ErrorResponse(ex.getMessage(), ex.getInternalCode()));
     }
 }
 

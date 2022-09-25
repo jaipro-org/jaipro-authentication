@@ -1,6 +1,6 @@
 package com.bindord.eureka.auth.wsc;
 
-import com.bindord.eureka.auth.configuration.ClientProperties;
+import com.bindord.eureka.auth.configuration.props.ClientProperties;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

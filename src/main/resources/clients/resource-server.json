@@ -29,22 +29,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -55,6 +45,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -97,22 +97,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -123,6 +113,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -162,22 +162,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -188,6 +178,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -219,22 +219,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -249,8 +239,18 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "200": {
-            "description": "List workLocations",
+            "description": "List specialistSpecializations",
             "content": {
               "application/json": {
                 "schema": {
@@ -287,22 +287,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -317,8 +307,18 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "200": {
-            "description": "Update a workLocation",
+            "description": "Update a specialistSpecialization",
             "content": {
               "application/json": {
                 "schema": {
@@ -352,22 +352,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -382,12 +372,212 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "200": {
-            "description": "Persist a workLocation",
+            "description": "Persist a specialistSpecialization",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SpecialistSpecialization"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist-cv": {
+      "get": {
+        "tags": [
+          "specialist-cv-controller"
+        ],
+        "operationId": "findAll_2",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "List specialist's cvs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SpecialistCv"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "specialist-cv-controller"
+        ],
+        "operationId": "update_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecialistCvUpdateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Update a specialist cv",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpecialistCv"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "specialist-cv-controller"
+        ],
+        "operationId": "save_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecialistCvDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persist a specialist cv",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpecialistCv"
                 }
               }
             }
@@ -400,7 +590,7 @@
         "tags": [
           "specialist-controller"
         ],
-        "operationId": "findAll_2",
+        "operationId": "findAll_3",
         "responses": {
           "400": {
             "description": "Bad Request",
@@ -409,22 +599,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -435,6 +615,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -458,7 +648,7 @@
         "tags": [
           "specialist-controller"
         ],
-        "operationId": "update_2",
+        "operationId": "update_3",
         "requestBody": {
           "content": {
             "application/json": {
@@ -477,22 +667,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -503,6 +683,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -523,7 +713,7 @@
         "tags": [
           "specialist-controller"
         ],
-        "operationId": "save_2",
+        "operationId": "save_3",
         "requestBody": {
           "content": {
             "application/json": {
@@ -542,22 +732,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -568,6 +748,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -590,7 +780,7 @@
         "tags": [
           "district-controller"
         ],
-        "operationId": "findAll_3",
+        "operationId": "findAll_4",
         "responses": {
           "400": {
             "description": "Bad Request",
@@ -599,22 +789,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -625,6 +805,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -648,7 +838,7 @@
         "tags": [
           "district-controller"
         ],
-        "operationId": "update_3",
+        "operationId": "update_4",
         "requestBody": {
           "content": {
             "application/json": {
@@ -667,22 +857,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -693,6 +873,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -713,7 +903,7 @@
         "tags": [
           "district-controller"
         ],
-        "operationId": "save_3",
+        "operationId": "save_4",
         "requestBody": {
           "content": {
             "application/json": {
@@ -732,22 +922,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -758,6 +938,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -780,7 +970,7 @@
         "tags": [
           "customer-controller"
         ],
-        "operationId": "findAll_4",
+        "operationId": "findAll_5",
         "responses": {
           "400": {
             "description": "Bad Request",
@@ -789,22 +979,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -815,6 +995,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -838,7 +1028,7 @@
         "tags": [
           "customer-controller"
         ],
-        "operationId": "update_4",
+        "operationId": "update_5",
         "requestBody": {
           "content": {
             "application/json": {
@@ -857,22 +1047,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -883,6 +1063,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -903,7 +1093,7 @@
         "tags": [
           "customer-controller"
         ],
-        "operationId": "save_4",
+        "operationId": "save_5",
         "requestBody": {
           "content": {
             "application/json": {
@@ -922,22 +1112,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -948,6 +1128,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -970,7 +1160,7 @@
         "tags": [
           "country-controller"
         ],
-        "operationId": "findAll_5",
+        "operationId": "findAll_6",
         "responses": {
           "400": {
             "description": "Bad Request",
@@ -979,22 +1169,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1005,6 +1185,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1028,7 +1218,7 @@
         "tags": [
           "country-controller"
         ],
-        "operationId": "update_5",
+        "operationId": "update_6",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1047,22 +1237,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1073,6 +1253,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1093,7 +1283,7 @@
         "tags": [
           "country-controller"
         ],
-        "operationId": "save_5",
+        "operationId": "save_6",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1112,22 +1302,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1138,6 +1318,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1182,22 +1372,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1208,6 +1388,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1255,22 +1445,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1285,8 +1465,18 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "200": {
-            "description": "Persist many workLocations",
+            "description": "Persist many specialistSpecializations",
             "content": {
               "application/json": {
                 "schema": {
@@ -1326,22 +1516,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1352,6 +1532,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1386,22 +1576,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1412,6 +1592,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1457,22 +1647,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1487,12 +1667,89 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
           "200": {
             "description": "Find by id",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Specialist"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist/by/query": {
+      "get": {
+        "tags": [
+          "specialist-controller"
+        ],
+        "operationId": "findByIdWithQuery",
+        "parameters": [
+          {
+            "name": "document",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Find by id with queryParam",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
                 }
               }
             }
@@ -1525,22 +1782,12 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1551,6 +1798,16 @@
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1571,10 +1828,10 @@
         }
       }
     },
-    "/eureka/resource-server/v1/customer/{id}": {
+    "/eureka/resource-server/v1/specialist-cv/{id}": {
       "get": {
         "tags": [
-          "customer-controller"
+          "specialist-cv-controller"
         ],
         "operationId": "findById_1",
         "parameters": [
@@ -1596,12 +1853,22 @@
                 "schema": {
                   "oneOf": [
                     {
-                      "$ref": "#/components/schemas/ErrorResponse"
+                      "$ref": "#/components/schemas/ApiError"
                     },
                     {
-                      "$ref": "#/components/schemas/ApiError"
+                      "$ref": "#/components/schemas/ErrorResponse"
                     }
                   ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -1616,12 +1883,70 @@
               }
             }
           },
+          "200": {
+            "description": "Find by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpecialistCv"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/customer/{id}": {
+      "get": {
+        "tags": [
+          "customer-controller"
+        ],
+        "operationId": "findById_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          },
           "409": {
             "description": "Conflict",
             "content": {
               "*/*": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
                 }
               }
             }
@@ -1642,6 +1967,17 @@
   },
   "components": {
     "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          }
+        }
+      },
       "ApiError": {
         "type": "object",
         "properties": {
@@ -1753,17 +2089,6 @@
           }
         }
       },
-      "ErrorResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          }
-        }
-      },
       "WorkLocationDto": {
         "required": [
           "countryId",
@@ -1858,37 +2183,165 @@
           }
         }
       },
-      "Rating": {
+      "Experience": {
         "required": [
-          "calification",
-          "clientName",
-          "serviceId"
+          "professionId",
+          "professionName"
         ],
         "type": "object",
         "properties": {
-          "calification": {
-            "minimum": 1,
-            "type": "number",
-            "format": "float"
+          "professionId": {
+            "type": "string",
+            "format": "uuid"
           },
-          "comment": {
-            "maxLength": 250,
-            "minLength": 9,
+          "professionName": {
+            "maxLength": 50,
+            "minLength": 3,
             "type": "string"
           },
-          "clientName": {
-            "maxLength": 72,
-            "minLength": 9,
-            "type": "string"
+          "time": {
+            "type": "integer",
+            "description": "Experience time in a profession expressed in months",
+            "format": "int32"
           },
-          "serviceId": {
-            "maxLength": 2147483647,
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Photo": {
+        "required": [
+          "size",
+          "url"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 50,
+            "minLength": 3,
+            "type": "string",
+            "description": "Optional description of the photo"
+          },
+          "size": {
+            "maximum": 4194304,
+            "minimum": 5080,
+            "type": "integer",
+            "description": "Image size expressed in bytes",
+            "format": "int32"
+          },
+          "url": {
+            "maxLength": 200,
             "minLength": 36,
             "type": "string"
           },
           "date": {
             "type": "string",
             "format": "date-time"
+          }
+        }
+      },
+      "SocialNetwork": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "maxLength": 30,
+            "minLength": 3,
+            "type": "string"
+          },
+          "username": {
+            "type": "string",
+            "description": "Social network's username"
+          }
+        }
+      },
+      "SpecialistCvUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "about": {
+            "maxLength": 1300,
+            "minLength": 30,
+            "type": "string"
+          },
+          "socialNetworks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SocialNetwork"
+            }
+          },
+          "gallery": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Photo"
+            }
+          },
+          "profilePhoto": {
+            "$ref": "#/components/schemas/Photo"
+          },
+          "experienceTimes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Experience"
+            }
+          }
+        }
+      },
+      "Json": {
+        "type": "object"
+      },
+      "SpecialistCv": {
+        "required": [
+          "experienceTimes"
+        ],
+        "type": "object",
+        "properties": {
+          "createdBy": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "about": {
+            "maxLength": 1300,
+            "minLength": 30,
+            "type": "string"
+          },
+          "socialNetworks": {
+            "$ref": "#/components/schemas/Json"
+          },
+          "gallery": {
+            "$ref": "#/components/schemas/Json"
+          },
+          "profilePhoto": {
+            "$ref": "#/components/schemas/Json"
+          },
+          "experienceTimes": {
+            "$ref": "#/components/schemas/Json"
           }
         }
       },
@@ -1925,21 +2378,12 @@
             "minLength": 9,
             "type": "string"
           },
-          "ratings": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Rating"
-            }
-          },
           "districtId": {
             "type": "integer",
             "format": "int32",
             "example": 1
           }
         }
-      },
-      "Json": {
-        "type": "object"
       },
       "Specialist": {
         "required": [
@@ -2141,37 +2585,6 @@
           }
         }
       },
-      "Photo": {
-        "required": [
-          "size",
-          "url"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "maxLength": 50,
-            "minLength": 3,
-            "type": "string",
-            "description": "Optional description of the photo"
-          },
-          "size": {
-            "maximum": 4194304,
-            "minimum": 5080,
-            "type": "integer",
-            "description": "Image size expressed in bytes",
-            "format": "int32"
-          },
-          "url": {
-            "maxLength": 200,
-            "minLength": 36,
-            "type": "string"
-          },
-          "date": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
       "Customer": {
         "required": [
           "email",
@@ -2319,6 +2732,44 @@
           }
         }
       },
+      "SpecialistCvDto": {
+        "required": [
+          "experienceTimes"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "about": {
+            "maxLength": 1300,
+            "minLength": 30,
+            "type": "string"
+          },
+          "socialNetworks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SocialNetwork"
+            }
+          },
+          "gallery": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Photo"
+            }
+          },
+          "profilePhoto": {
+            "$ref": "#/components/schemas/Photo"
+          },
+          "experienceTimes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Experience"
+            }
+          }
+        }
+      },
       "SpecialistDto": {
         "required": [
           "address",
@@ -2383,12 +2834,6 @@
           },
           "verified": {
             "type": "boolean"
-          },
-          "ratings": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Rating"
-            }
           },
           "districtId": {
             "type": "integer",

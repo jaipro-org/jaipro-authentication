@@ -1,5 +1,6 @@
 package com.bindord.eureka.auth.configuration;
 
+import com.bindord.eureka.auth.configuration.props.HeadersCommon;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -17,7 +18,7 @@ public class WebFilterConfiguration {
     @Bean
     public WebClient.Builder webClient() {
         return WebClient.builder().filter(
-                this.openTracingExchangeFilterFunction()
+                this.customExchangeFilterFunction()
         );
     }
 
@@ -27,7 +28,7 @@ public class WebFilterConfiguration {
     }
 
     @Bean
-    public CustomExchangeFilterFunction openTracingExchangeFilterFunction() {
+    public CustomExchangeFilterFunction customExchangeFilterFunction() {
         return new CustomExchangeFilterFunction(headersCommon.getHeaders());
     }
 }
