@@ -3,7 +3,7 @@ package com.bindord.eureka.auth.controller;
 import com.bindord.eureka.auth.domain.CustomerPersist;
 import com.bindord.eureka.auth.service.CustomerService;
 import com.bindord.eureka.auth.validator.Validator;
-import com.bindord.resourceserver.model.Customer;
+import com.bindord.eureka.resourceserver.model.Customer;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

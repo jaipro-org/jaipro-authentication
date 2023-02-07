@@ -39,7 +39,7 @@ public class SecurityConfiguration {
         }
         http
                 .authorizeExchange()
-//                .pathMatchers("/eureka/authentication/**").permitAll()
+                .pathMatchers("/eureka/authentication/**").permitAll()
                 .pathMatchers("/webjars/**").permitAll()
                 .pathMatchers("/swagger**").permitAll()
                 .pathMatchers("/v3/**").permitAll()

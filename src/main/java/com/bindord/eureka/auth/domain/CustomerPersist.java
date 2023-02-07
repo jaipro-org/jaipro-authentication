@@ -1,6 +1,6 @@
 package com.bindord.eureka.auth.domain;
 
-import com.bindord.resourceserver.model.CustomerDto;
+import com.bindord.eureka.resourceserver.model.CustomerDto;
 import lombok.Getter;
 import lombok.Setter;
 

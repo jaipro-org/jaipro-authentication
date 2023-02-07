@@ -2,6 +2,7 @@ package com.bindord.eureka.auth.configuration;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
@@ -10,6 +11,7 @@ import reactor.util.context.Context;
 
 import java.util.Set;
 
+@Component
 public class CustomWebFilter implements WebFilter {
 
     private static final Logger LOGGER = LogManager.getLogger(CustomWebFilter.class);

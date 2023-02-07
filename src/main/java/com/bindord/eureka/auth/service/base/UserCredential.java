@@ -1,8 +1,8 @@
 package com.bindord.eureka.auth.service.base;
 
 import com.bindord.eureka.auth.wsc.KeycloakClientConfiguration;
-import com.bindord.keycloak.auth.model.UserLogin;
-import com.bindord.keycloak.auth.model.UserRepresentation;
+import com.bindord.eureka.keycloak.auth.model.UserLogin;
+import com.bindord.eureka.keycloak.auth.model.UserRepresentation;
 import org.springframework.http.MediaType;
 import reactor.core.publisher.Mono;
 

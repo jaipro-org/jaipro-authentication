@@ -1,9 +1,9 @@
 package com.bindord.eureka.auth.domain;
 
-import com.bindord.resourceserver.model.SpecialistCvDto;
-import com.bindord.resourceserver.model.SpecialistDto;
-import com.bindord.resourceserver.model.SpecialistSpecializationDto;
-import com.bindord.resourceserver.model.WorkLocationDto;
+import com.bindord.eureka.resourceserver.model.SpecialistCvDto;
+import com.bindord.eureka.resourceserver.model.SpecialistDto;
+import com.bindord.eureka.resourceserver.model.SpecialistSpecializationDto;
+import com.bindord.eureka.resourceserver.model.WorkLocationDto;
 import lombok.Getter;
 import lombok.Setter;
 

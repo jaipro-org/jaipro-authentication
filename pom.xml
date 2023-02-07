@@ -8,10 +8,10 @@
         <version>2.6.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.bindord</groupId>
-    <artifactId>eureka-authentication</artifactId>
+    <groupId>com.bindord.eureka</groupId>
+    <artifactId>auth</artifactId>
     <version>0.0.3-SNAPSHOT</version>
-    <name>eureka auth</name>
+    <name>eureka-auth</name>
     <description>Eureka authentication is the first official project of Bindord</description>
 
     <properties>
@@ -220,6 +220,19 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <to>
+                        <image>gcr.io/ancient-lattice-373518/${project.name}</image>
+                    </to>
+                    <container>
+                        <mainClass>${project.groupId}.${project.artifactId}.EurekaAuthenticationApplication</mainClass>
+                    </container>
+                </configuration>
             </plugin>
         </plugins>
     </build>

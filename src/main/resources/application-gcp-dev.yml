@@ -3,7 +3,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://host.docker.internal:30010/auth/realms/eureka
+          issuer-uri: http://34.71.32.155:8080/auth/realms/eureka
 
 eureka:
   services:
@@ -20,4 +20,4 @@ eureka:
         connectionTimeout: 300
 
 logging:
-  config: classpath:log4j2-debug-spring.xml
+  config: classpath:log4j2-dev-spring.xml
