@@ -3,6 +3,7 @@ package com.bindord.eureka.auth.controller;
 import com.bindord.eureka.auth.advice.CustomValidationException;
 import com.bindord.eureka.auth.advice.NotFoundValidationException;
 import com.bindord.eureka.auth.service.AuthenticationService;
+import com.bindord.eureka.keycloak.auth.model.RefreshToken;
 import com.bindord.eureka.keycloak.auth.model.UserLogin;
 import com.bindord.eureka.keycloak.auth.model.UserToken;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -33,5 +34,15 @@ public class AuthenticationController {
     public Mono<UserToken> login(@Valid @RequestBody UserLogin userLogin)
             throws CustomValidationException, NotFoundValidationException {
         return authenticationService.doAuthenticate(userLogin);
+    }
+
+    @ApiResponse(description = "Refresh access token",
+            responseCode = "200")
+    @PostMapping(value = "/refresh-token",
+            produces = {MediaType.APPLICATION_JSON_VALUE},
+            consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public Mono<UserToken> refreshToken(@Valid @RequestBody RefreshToken refreshToken)
+            throws CustomValidationException, NotFoundValidationException {
+        return authenticationService.doRefreshToken(refreshToken);
     }
 }

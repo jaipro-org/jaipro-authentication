@@ -4,6 +4,7 @@ import com.bindord.eureka.auth.advice.CustomValidationException;
 import com.bindord.eureka.auth.advice.NotFoundValidationException;
 import com.bindord.eureka.auth.service.AuthenticationService;
 import com.bindord.eureka.auth.wsc.KeycloakClientConfiguration;
+import com.bindord.eureka.keycloak.auth.model.RefreshToken;
 import com.bindord.eureka.keycloak.auth.model.UserLogin;
 import com.bindord.eureka.keycloak.auth.model.UserToken;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(userLogin), UserLogin.class)
+                .retrieve()
+                .bodyToMono(UserToken.class);
+    }
+
+    @Override
+    public Mono<UserToken> doRefreshToken(RefreshToken refreshToken) {
+        return keycloakClient.init()
+                .post()
+                .uri("/auth/refresh-token")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(refreshToken), RefreshToken.class)
                 .retrieve()
                 .bodyToMono(UserToken.class);
     }
