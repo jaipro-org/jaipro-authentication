@@ -49,20 +49,20 @@ public class ExceptionControllerAdvice {
         for (FieldError x : ex.getBindingResult().getFieldErrors()) {
             errors.add(new ApiSubError(x.getObjectName(), x.getField(), x.getRejectedValue(), x.getDefaultMessage()));
         }
-        return Mono.just(new ApiError(HttpStatus.BAD_REQUEST, BINDING_ERROR, errors));
+        return Mono.just(new ApiError(BINDING_ERROR, errors));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public Mono<ApiError> handleBindException(IllegalArgumentException ex) {
-        return Mono.just(new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex));
+        return Mono.just(new ApiError(ex.getMessage(), ex));
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundValidationException.class)
     public @ResponseBody
     Mono<ApiError> handlerNotFoundValidationException(NotFoundValidationException ex) {
-        return Mono.just(new ApiError(HttpStatus.NOT_FOUND, ex));
+        return Mono.just(new ApiError(ex));
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
