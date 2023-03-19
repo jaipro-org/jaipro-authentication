@@ -32,8 +32,7 @@ public class AuthenticationController {
     @PostMapping(value = "/login",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Mono<AuthUser> login(@Valid @RequestBody UserLogin userLogin)
-            throws CustomValidationException, NotFoundValidationException {
+    public Mono<AuthUser> login(@Valid @RequestBody UserLogin userLogin) {
         return authenticationService.doAuthenticate(userLogin);
     }
 
