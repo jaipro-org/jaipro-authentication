@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.bindord.eureka.auth.configuration.JacksonFactory.getObjectMapper;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @RestControllerAdvice
 public class ExceptionControllerAdvice {
@@ -64,26 +65,27 @@ public class ExceptionControllerAdvice {
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(WebClientResponseException.class)
     public @ResponseBody
-    Mono<ErrorResponse> handlerWebClientResponseException(WebClientResponseException ex)
+    Mono<ApiError> handlerWebClientResponseException(WebClientResponseException ex)
             throws JsonProcessingException {
+        LOGGER.warn("method {}", "handlerWebClientResponseException");
         LOGGER.warn(ex.getMessage());
         var lenStackTrace = ex.getStackTrace().length;
         for (int i = 0; i < lenStackTrace; i++) {
             LOGGER.warn(ex.getStackTrace()[i].toString());
         }
         if (ex.getRawStatusCode() == HttpStatus.UNAUTHORIZED.value()) {
-            var err = new ErrorResponse();
-            err.setCode(String.valueOf(HttpStatus.UNAUTHORIZED.value()));
-            err.setMessage(ex.getMessage());
+            var err = new ApiError(
+                    ex.getMessage(), ex);
             return Mono.just(err);
         }
-        return Mono.just(mapper.readValue(ex.getResponseBodyAsString(), ErrorResponse.class));
+        return Mono.just(mapper.readValue(ex.getResponseBodyAsString(UTF_8), ApiError.class));
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(CustomValidationException.class)
     public @ResponseBody
     Mono<ErrorResponse> handlerCustomValidationException(CustomValidationException ex) {
+        LOGGER.warn("method {}", "handlerCustomValidationException");
         LOGGER.warn(ex.getMessage());
         for (int i = 0; i < ex.getStackTrace().length; i++) {
             LOGGER.warn(ex.getStackTrace()[i].toString());

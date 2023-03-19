@@ -1,17 +1,24 @@
 package com.bindord.eureka.auth.domain.exception;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 
-@Data
-@EqualsAndHashCode(callSuper = false)
-@AllArgsConstructor
+@Setter
+@Getter
 public class ApiSubError {
     private String object;
     private String field;
     private Object rejectedValue;
     private String message;
 
+    public ApiSubError() {
+    }
+
+    public ApiSubError(String object, String field, Object rejectedValue, String message) {
+        this.object = object;
+        this.field = field;
+        this.rejectedValue = rejectedValue;
+        this.message = message;
+    }
 }
