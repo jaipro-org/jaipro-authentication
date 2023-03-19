@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.support.WebExchangeBindException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.server.ServerWebInputException;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
@@ -27,20 +28,13 @@ public class ExceptionControllerAdvice {
 
     private static final ObjectMapper mapper = getObjectMapper();
 
-    private static final String SQL_UNIQUE_VIOLATION_CODE = "23505";
-    private static final String SQL_DUP_EXCEP_PREFIX = "duplicate key value violates unique constraint";
-    private static final String SQL_DUP_EXCEP_PREFIX_ES = "llave duplicada viola restricción de unicidad";
-    private static final String TEMP_UNIQUE_CONS_ONE = "uk8jmdau039u32ktqkckcdgnvkt";
-    private static final String TEMP_UNIQUE_CONS_TWO = "uk_7rr530m3pxabetp6s9r0fjp37";
-    private static final String TEMP_UC_ONE_MSG = "¡El código del producto ya ha sido escaneado con anterioridad, no puede haber códigos duplicados!";
-    private static final String TEMP_UC_TWO_MSG = "El usuario que intenta registrar, ya ha sido registrado con anterioridad. Si no lo encuentra en su lista de contactos, es porque este ha sido registrado por otro vendedor.";
-
     private static final Logger LOGGER = LogManager.getLogger(ExceptionControllerAdvice.class);
     public static final String BINDING_ERROR = "Validation has failed";
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(WebExchangeBindException.class)
     public Mono<ApiError> handleBindException(WebExchangeBindException ex) {
+        LOGGER.warn("method {}", "handleBindException");
         ex.getModel().entrySet().forEach(e -> {
             LOGGER.warn(e.getKey() + ": " + e.getValue());
         });
@@ -54,7 +48,8 @@ public class ExceptionControllerAdvice {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
-    public Mono<ApiError> handleBindException(IllegalArgumentException ex) {
+    public Mono<ApiError> handleIllegalArgumentException(IllegalArgumentException ex) {
+        LOGGER.warn("method {}", "handleIllegalArgumentException");
         return Mono.just(new ApiError(ex.getMessage(), ex));
     }
 
@@ -62,6 +57,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(NotFoundValidationException.class)
     public @ResponseBody
     Mono<ApiError> handlerNotFoundValidationException(NotFoundValidationException ex) {
+        LOGGER.warn("method {}", "handlerNotFoundValidationException");
         return Mono.just(new ApiError(ex));
     }
 
@@ -93,6 +89,14 @@ public class ExceptionControllerAdvice {
             LOGGER.warn(ex.getStackTrace()[i].toString());
         }
         return Mono.just(new ErrorResponse(ex.getMessage(), ex.getInternalCode()));
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ServerWebInputException.class)
+    public @ResponseBody
+    Mono<ApiError> handleServerWebInputException(ServerWebInputException ex) {
+        LOGGER.warn("method {}", "handleServerWebInputException");
+        return Mono.just(new ApiError(ex.getMessage(), ex));
     }
 }
 

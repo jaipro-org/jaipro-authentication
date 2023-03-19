@@ -2,18 +2,25 @@ package com.bindord.eureka.auth.service.impl;
 
 import com.bindord.eureka.auth.domain.CustomerPersist;
 import com.bindord.eureka.auth.service.CustomerService;
+import com.bindord.eureka.auth.service.UserInfoService;
 import com.bindord.eureka.auth.service.base.UserCredential;
+import com.bindord.eureka.auth.utils.Constants;
 import com.bindord.eureka.auth.wsc.KeycloakClientConfiguration;
 import com.bindord.eureka.auth.wsc.ResourceServerClientConfiguration;
 import com.bindord.eureka.resourceserver.model.Customer;
 import com.bindord.eureka.resourceserver.model.CustomerDto;
+import com.bindord.eureka.resourceserver.model.UserInfo;
+import com.bindord.eureka.resourceserver.model.UserInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
 
 import java.util.UUID;
+
+import static com.bindord.eureka.auth.utils.Constants.Profiles.CUSTOMER;
 
 @Service
 @AllArgsConstructor
@@ -23,20 +30,22 @@ public class CustomerServiceImpl extends UserCredential implements CustomerServi
 
     private final ResourceServerClientConfiguration resourceServerClientConfiguration;
 
+    private final UserInfoService userInfoService;
+
     @Override
     public Mono<Customer> save(CustomerPersist customer) {
         return this.doRegisterUser(keycloakClient,
                 customer.getEmail(),
                 customer.getPassword()
-        ).flatMap(userRepresentation -> {
-            assert userRepresentation.getId() != null;
-            customer.setId(UUID.fromString(userRepresentation.getId()));
-            return doRegisterCustomer(customer);
-        });
+        ).flatMap(userRepresentation -> Mono.zip(
+                doRegisterCustomer(customer, userRepresentation.getId()),
+                doRegisterUserInfo(userRepresentation.getId())
+        ).map(Tuple2::getT1));
     }
 
     @SneakyThrows
-    private Mono<Customer> doRegisterCustomer(CustomerDto customer) {
+    private Mono<Customer> doRegisterCustomer(CustomerDto customer, String userId) {
+        customer.setId(UUID.fromString(userId));
         return resourceServerClientConfiguration.init()
                 .post()
                 .uri("/customer")
@@ -45,5 +54,13 @@ public class CustomerServiceImpl extends UserCredential implements CustomerServi
                 .body(Mono.just(customer), CustomerDto.class)
                 .retrieve()
                 .bodyToMono(Customer.class);
+    }
+
+    private Mono<UserInfo> doRegisterUserInfo(String userId) {
+        var userInfo = new UserInfoDto();
+        userInfo.setId(UUID.fromString(userId));
+        userInfo.setProfileType(CUSTOMER.get());
+        userInfo.setProfileName(CUSTOMER.name());
+        return userInfoService.save(userInfo);
     }
 }

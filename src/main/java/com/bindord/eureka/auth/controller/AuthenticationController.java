@@ -2,6 +2,7 @@ package com.bindord.eureka.auth.controller;
 
 import com.bindord.eureka.auth.advice.CustomValidationException;
 import com.bindord.eureka.auth.advice.NotFoundValidationException;
+import com.bindord.eureka.auth.domain.response.AuthUser;
 import com.bindord.eureka.auth.service.AuthenticationService;
 import com.bindord.eureka.keycloak.auth.model.RefreshToken;
 import com.bindord.eureka.keycloak.auth.model.UserLogin;
@@ -31,7 +32,7 @@ public class AuthenticationController {
     @PostMapping(value = "/login",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Mono<UserToken> login(@Valid @RequestBody UserLogin userLogin)
+    public Mono<AuthUser> login(@Valid @RequestBody UserLogin userLogin)
             throws CustomValidationException, NotFoundValidationException {
         return authenticationService.doAuthenticate(userLogin);
     }

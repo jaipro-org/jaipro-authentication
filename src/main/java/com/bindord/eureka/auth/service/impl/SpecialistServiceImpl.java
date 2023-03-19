@@ -3,6 +3,7 @@ package com.bindord.eureka.auth.service.impl;
 import com.bindord.eureka.auth.advice.CustomValidationException;
 import com.bindord.eureka.auth.domain.SpecialistPersist;
 import com.bindord.eureka.auth.service.SpecialistService;
+import com.bindord.eureka.auth.service.UserInfoService;
 import com.bindord.eureka.auth.service.base.UserCredential;
 import com.bindord.eureka.auth.wsc.KeycloakClientConfiguration;
 import com.bindord.eureka.auth.wsc.ResourceServerClientConfiguration;
@@ -12,6 +13,8 @@ import com.bindord.eureka.resourceserver.model.SpecialistCvDto;
 import com.bindord.eureka.resourceserver.model.SpecialistDto;
 import com.bindord.eureka.resourceserver.model.SpecialistSpecialization;
 import com.bindord.eureka.resourceserver.model.SpecialistSpecializationDto;
+import com.bindord.eureka.resourceserver.model.UserInfo;
+import com.bindord.eureka.resourceserver.model.UserInfoDto;
 import com.bindord.eureka.resourceserver.model.WorkLocation;
 import com.bindord.eureka.resourceserver.model.WorkLocationDto;
 import lombok.AllArgsConstructor;
@@ -26,6 +29,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.bindord.eureka.auth.utils.Constants.Profiles.SPECIALIST;
+
 @Service
 @AllArgsConstructor
 public class SpecialistServiceImpl extends UserCredential implements SpecialistService {
@@ -33,6 +38,8 @@ public class SpecialistServiceImpl extends UserCredential implements SpecialistS
     private final KeycloakClientConfiguration keycloakClient;
 
     private final ResourceServerClientConfiguration resourceServerClientConfiguration;
+
+    private final UserInfoService userInfoService;
 
     @Override
     public Mono<Specialist> save(SpecialistPersist specialist) {
@@ -45,16 +52,15 @@ public class SpecialistServiceImpl extends UserCredential implements SpecialistS
                 .then(this.doRegisterUser(keycloakClient,
                         specialist.getEmail(),
                         specialist.getPassword()
-                ).flatMap(userRepresentation -> {
-                    assert userRepresentation.getId() != null;
-                    specialist.setId(UUID.fromString(userRepresentation.getId()));
-                    return doRegisterSpecialist(specialist).flatMap(
-                            spe -> doRegisterSpecialistSpecializations(specialist.getSpecialistSpecializations(), spe)
-                                    .zipWith(doRegisterWorkLocations(specialist.getWorkLocations(), spe))
-                                    .zipWith(doRegisterSpecialistCv(specialist.getSpecialistCv(), spe))
-                                    .then(Mono.just(spe))
-                    );
-                }));
+                ).flatMap(userRepresentation ->
+                        doRegisterSpecialist(specialist, userRepresentation.getId()).flatMap(
+                                spe -> doRegisterSpecialistSpecializations(specialist.getSpecialistSpecializations(), spe)
+                                        .zipWith(doRegisterWorkLocations(specialist.getWorkLocations(), spe))
+                                        .zipWith(doRegisterSpecialistCv(specialist.getSpecialistCv(), spe))
+                                        .zipWith(doRegisterUserInfo(userRepresentation.getId()))
+                                        .then(Mono.just(spe))
+                        )
+                ));
     }
 
     private Mono<Boolean> doValidateIfDocumentExists(String document) {
@@ -69,7 +75,8 @@ public class SpecialistServiceImpl extends UserCredential implements SpecialistS
     }
 
     @SneakyThrows
-    private Mono<Specialist> doRegisterSpecialist(SpecialistDto specialist) {
+    private Mono<Specialist> doRegisterSpecialist(SpecialistDto specialist, String userId) {
+        specialist.setId(UUID.fromString(userId));
         return resourceServerClientConfiguration.init()
                 .post()
                 .uri("/specialist")
@@ -130,5 +137,13 @@ public class SpecialistServiceImpl extends UserCredential implements SpecialistS
                 .body(Mono.just(specialistCvDto), SpecialistCvDto.class)
                 .retrieve()
                 .bodyToMono(SpecialistCv.class);
+    }
+
+    private Mono<UserInfo> doRegisterUserInfo(String userId) {
+        var userInfo = new UserInfoDto();
+        userInfo.setId(UUID.fromString(userId));
+        userInfo.setProfileType(SPECIALIST.get());
+        userInfo.setProfileName(SPECIALIST.name());
+        return userInfoService.save(userInfo);
     }
 }
