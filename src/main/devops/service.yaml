@@ -8,5 +8,5 @@ spec:
     - targetPort: 8080
       port: 8080
   selector:
-    service: eureka-authentication
+    service: jaipro-authentication
     type: backend

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: ${SVC_NAME}
   labels:
-    service: eureka-authentication
+    service: jaipro-authentication
     app: hogarep
     type: backend
     consume: db
@@ -51,12 +51,12 @@ spec:
             - name: SERVER_PORT
               valueFrom:
                 secretKeyRef:
-                  name: secret-eureka-authentication
+                  name: secret-jaipro-authentication
                   key: SERVER_PORT
             - name: SPRING_DATA_MONGODB_URI
               valueFrom:
                 secretKeyRef:
-                  name: secret-eureka-authentication
+                  name: secret-jaipro-authentication
                   key: SPRING_DATA_MONGODB_URI
   replicas: 1
   strategy:
