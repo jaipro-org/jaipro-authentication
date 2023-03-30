@@ -53,13 +53,16 @@ public class SpecialistServiceImpl extends UserCredential implements SpecialistS
                         specialist.getEmail(),
                         specialist.getPassword()
                 ).flatMap(userRepresentation ->
-                        doRegisterSpecialist(specialist, userRepresentation.getId()).flatMap(
-                                spe -> doRegisterSpecialistSpecializations(specialist.getSpecialistSpecializations(), spe)
-                                        .zipWith(doRegisterWorkLocations(specialist.getWorkLocations(), spe))
-                                        .zipWith(doRegisterSpecialistCv(specialist.getSpecialistCv(), spe))
-                                        .zipWith(doRegisterUserInfo(userRepresentation.getId()))
-                                        .then(Mono.just(spe))
-                        )
+                        doRegisterSpecialist(specialist, userRepresentation.getId())
+                                .onErrorResume(ex -> this.doRollbackOnRegisterUser(keycloakClient, userRepresentation.getId())
+                                        .then(Mono.error(ex)))
+                                .flatMap(
+                                        spe -> doRegisterSpecialistSpecializations(specialist.getSpecialistSpecializations(), spe)
+                                                .zipWith(doRegisterWorkLocations(specialist.getWorkLocations(), spe))
+                                                .zipWith(doRegisterSpecialistCv(specialist.getSpecialistCv(), spe))
+                                                .zipWith(doRegisterUserInfo(userRepresentation.getId()))
+                                                .then(Mono.just(spe))
+                                )
                 ));
     }
 

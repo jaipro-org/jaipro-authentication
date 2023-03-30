@@ -9,8 +9,8 @@ import reactor.core.publisher.Mono;
 public class UserCredential {
 
     protected Mono<UserRepresentation> doRegisterUser(KeycloakClientConfiguration keycloakClient,
-                                                    String email,
-                                                    String pwd) {
+                                                      String email,
+                                                      String pwd) {
         var userLogin = new UserLogin();
         userLogin.setEmail(email);
         userLogin.setPassword(pwd);
@@ -22,5 +22,13 @@ public class UserCredential {
                 .body(Mono.just(userLogin), UserLogin.class)
                 .retrieve()
                 .bodyToMono(UserRepresentation.class);
+    }
+
+    protected Mono<Void> doRollbackOnRegisterUser(KeycloakClientConfiguration keycloakClient, String userId) {
+        return keycloakClient.init()
+                .delete()
+                .uri(uriBuilder -> uriBuilder.path("/user/{userId}").build(userId))
+                .retrieve()
+                .bodyToMono(Void.class);
     }
 }
