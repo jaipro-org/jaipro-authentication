@@ -4,11 +4,11 @@ metadata:
   name: jaipro-authentication
   namespace: jaipro
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - targetPort: 9010
       port: 8080
-      nodePort: 31082
+      nodePort: 31085
   selector:
     service: jaipro-authentication
     type: backend
