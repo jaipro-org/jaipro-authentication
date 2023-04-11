@@ -40,6 +40,7 @@ public class CustomerController {
     @ApiResponse(description = "Update customer password",
             responseCode = "200")
     @PutMapping(value = "/updatePassword",
+            produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
     public Mono<Void> updatePassword(@Valid @RequestBody UserPasswordDTO userPassword) {
         return customerService.updatePassword(userPassword);
