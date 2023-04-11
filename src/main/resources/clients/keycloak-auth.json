@@ -15,6 +15,69 @@
     }
   ],
   "paths": {
+    "/eureka/keycloak-auth/v1/user/updatePassword": {
+      "put": {
+        "tags": [
+          "eureka-user-controller"
+        ],
+        "operationId": "updateUserPasswordById",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPasswordDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/eureka/keycloak-auth/v1/user": {
       "post": {
         "tags": [
@@ -285,6 +348,70 @@
           }
         }
       }
+    },
+    "/eureka/keycloak-auth/v1/user/{userId}": {
+      "delete": {
+        "tags": [
+          "eureka-user-controller"
+        ],
+        "operationId": "deleteById",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -296,6 +423,37 @@
             "type": "string"
           },
           "code": {
+            "type": "string"
+          }
+        }
+      },
+      "UserPasswordDTO": {
+        "required": [
+          "currentPassword",
+          "nwPassword",
+          "username"
+        ],
+        "type": "object",
+        "properties": {
+          "currentPassword": {
+            "maxLength": 40,
+            "minLength": 7,
+            "type": "string"
+          },
+          "nwPassword": {
+            "maxLength": 40,
+            "minLength": 7,
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "username": {
+            "maxLength": 60,
+            "minLength": 7,
+            "type": "string"
+          },
+          "verificationCode": {
             "type": "string"
           }
         }

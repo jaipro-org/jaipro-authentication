@@ -4,9 +4,9 @@ import com.bindord.eureka.auth.domain.CustomerPersist;
 import com.bindord.eureka.auth.service.CustomerService;
 import com.bindord.eureka.auth.service.UserInfoService;
 import com.bindord.eureka.auth.service.base.UserCredential;
-import com.bindord.eureka.auth.utils.Constants;
 import com.bindord.eureka.auth.wsc.KeycloakClientConfiguration;
 import com.bindord.eureka.auth.wsc.ResourceServerClientConfiguration;
+import com.bindord.eureka.keycloak.auth.model.UserPasswordDTO;
 import com.bindord.eureka.resourceserver.model.Customer;
 import com.bindord.eureka.resourceserver.model.CustomerDto;
 import com.bindord.eureka.resourceserver.model.UserInfo;
@@ -41,6 +41,11 @@ public class CustomerServiceImpl extends UserCredential implements CustomerServi
                 doRegisterCustomer(customer, userRepresentation.getId()),
                 doRegisterUserInfo(userRepresentation.getId())
         ).map(Tuple2::getT1));
+    }
+
+    @Override
+    public Mono<Void> updatePassword(UserPasswordDTO userPassword) {
+        return this.doUpdateUserPassword(keycloakClient, userPassword);
     }
 
     @SneakyThrows
