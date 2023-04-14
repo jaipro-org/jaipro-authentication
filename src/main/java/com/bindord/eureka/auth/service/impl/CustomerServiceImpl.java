@@ -37,10 +37,12 @@ public class CustomerServiceImpl extends UserCredential implements CustomerServi
         return this.doRegisterUser(keycloakClient,
                 customer.getEmail(),
                 customer.getPassword()
-        ).flatMap(userRepresentation -> Mono.zip(
-                doRegisterCustomer(customer, userRepresentation.getId()),
-                doRegisterUserInfo(userRepresentation.getId())
-        ).map(Tuple2::getT1));
+        ).flatMap(userRepresentation ->
+                doRegisterCustomer(customer, userRepresentation.getId())
+                        .onErrorResume(ex -> this.doRollbackOnRegisterUser(keycloakClient, userRepresentation.getId())
+                                .then(Mono.error(ex)))
+                        .flatMap(cust -> doRegisterUserInfo(userRepresentation.getId())
+                                .then(Mono.just(cust))));
     }
 
     @Override
