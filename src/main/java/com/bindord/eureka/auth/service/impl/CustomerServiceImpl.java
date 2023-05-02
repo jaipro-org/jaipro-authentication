@@ -16,7 +16,6 @@ import lombok.SneakyThrows;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
-import reactor.util.function.Tuple2;
 
 import java.util.UUID;
 
@@ -41,7 +40,7 @@ public class CustomerServiceImpl extends UserCredential implements CustomerServi
                 doRegisterCustomer(customer, userRepresentation.getId())
                         .onErrorResume(ex -> this.doRollbackOnRegisterUser(keycloakClient, userRepresentation.getId())
                                 .then(Mono.error(ex)))
-                        .flatMap(cust -> doRegisterUserInfo(userRepresentation.getId())
+                        .flatMap(cust -> doRegisterUserInfo(userRepresentation.getId(), customer.getEmail())
                                 .then(Mono.just(cust))));
     }
 
@@ -63,11 +62,12 @@ public class CustomerServiceImpl extends UserCredential implements CustomerServi
                 .bodyToMono(Customer.class);
     }
 
-    private Mono<UserInfo> doRegisterUserInfo(String userId) {
+    private Mono<UserInfo> doRegisterUserInfo(String userId, String email) {
         var userInfo = new UserInfoDto();
         userInfo.setId(UUID.fromString(userId));
         userInfo.setProfileType(CUSTOMER.get());
         userInfo.setProfileName(CUSTOMER.name());
+        userInfo.setEmail(email);
         return userInfoService.save(userInfo);
     }
 }

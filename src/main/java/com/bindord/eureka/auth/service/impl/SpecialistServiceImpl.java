@@ -60,7 +60,7 @@ public class SpecialistServiceImpl extends UserCredential implements SpecialistS
                                         spe -> doRegisterSpecialistSpecializations(specialist.getSpecialistSpecializations(), spe)
                                                 .zipWith(doRegisterWorkLocations(specialist.getWorkLocations(), spe))
                                                 .zipWith(doRegisterSpecialistCv(specialist.getSpecialistCv(), spe))
-                                                .zipWith(doRegisterUserInfo(userRepresentation.getId()))
+                                                .zipWith(doRegisterUserInfo(userRepresentation.getId(), spe.getEmail()))
                                                 .then(Mono.just(spe))
                                 )
                 ));
@@ -142,11 +142,12 @@ public class SpecialistServiceImpl extends UserCredential implements SpecialistS
                 .bodyToMono(SpecialistCv.class);
     }
 
-    private Mono<UserInfo> doRegisterUserInfo(String userId) {
+    private Mono<UserInfo> doRegisterUserInfo(String userId, String email) {
         var userInfo = new UserInfoDto();
         userInfo.setId(UUID.fromString(userId));
         userInfo.setProfileType(SPECIALIST.get());
         userInfo.setProfileName(SPECIALIST.name());
+        userInfo.setEmail(email);
         return userInfoService.save(userInfo);
     }
 }
