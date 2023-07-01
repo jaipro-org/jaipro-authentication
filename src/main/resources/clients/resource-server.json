@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8080",
+      "url": "http://35.225.173.162:8080",
       "description": "Generated server url"
     }
   ],
@@ -775,6 +775,150 @@
         }
       }
     },
+    "/eureka/resource-server/v1/specialist/{id}": {
+      "get": {
+        "tags": [
+          "specialist-controller"
+        ],
+        "operationId": "findById_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Find by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Specialist"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "specialist-controller"
+        ],
+        "operationId": "update_4",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecialistUpdateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Update a specialist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Specialist"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/eureka/resource-server/v1/specialist-specialization": {
       "get": {
         "tags": [
@@ -838,7 +982,7 @@
         "tags": [
           "specialist-specialization-controller"
         ],
-        "operationId": "update_4",
+        "operationId": "update_5",
         "requestBody": {
           "content": {
             "application/json": {
@@ -958,6 +1102,84 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SpecialistSpecialization"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist-cv/{id}/presentation": {
+      "put": {
+        "tags": [
+          "specialist-cv-controller"
+        ],
+        "operationId": "updatePresentation",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecialistCvPresentationUpdateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Update a specialist cv but only the fields related to presentation card",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpecialistCv"
                 }
               }
             }
@@ -1112,82 +1334,23 @@
         }
       }
     },
-    "/eureka/resource-server/v1/specialist-cv/gallery": {
-      "put": {
-        "tags": [
-          "specialist-cv-controller"
-        ],
-        "operationId": "updateGallery",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SpecialistGalleryUpdateDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Update gallery to specialist cv",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Photo"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/eureka/resource-server/v1/specialist-cv": {
+    "/eureka/resource-server/v1/specialist-cv/{id}": {
       "get": {
         "tags": [
           "specialist-cv-controller"
         ],
-        "operationId": "findAll_5",
+        "operationId": "findById_2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
         "responses": {
           "400": {
             "description": "Bad Request",
@@ -1227,14 +1390,11 @@
             }
           },
           "200": {
-            "description": "List specialist's cvs",
+            "description": "Find by id",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SpecialistCv"
-                  }
+                  "$ref": "#/components/schemas/SpecialistCv"
                 }
               }
             }
@@ -1245,7 +1405,18 @@
         "tags": [
           "specialist-cv-controller"
         ],
-        "operationId": "update_5",
+        "operationId": "update_6",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1305,21 +1476,38 @@
             }
           }
         }
-      },
-      "post": {
+      }
+    },
+    "/eureka/resource-server/v1/specialist-cv/gallery": {
+      "put": {
         "tags": [
           "specialist-cv-controller"
         ],
-        "operationId": "save_5",
+        "operationId": "updateGallery",
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/SpecialistCvDto"
+                "required": [
+                  "images",
+                  "specialistGallery"
+                ],
+                "type": "object",
+                "properties": {
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "specialistGallery": {
+                    "$ref": "#/components/schemas/SpecialistGalleryUpdateDto"
+                  }
+                }
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "400": {
@@ -1360,7 +1548,7 @@
             }
           },
           "200": {
-            "description": "Persist a specialist cv",
+            "description": "Update gallery to specialist cv",
             "content": {
               "application/json": {
                 "schema": {
@@ -1377,7 +1565,7 @@
         "tags": [
           "specialist-bank-account-controller"
         ],
-        "operationId": "update_6",
+        "operationId": "update_7",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1497,196 +1685,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SpecialistBankAccount"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/eureka/resource-server/v1/specialist": {
-      "get": {
-        "tags": [
-          "specialist-controller"
-        ],
-        "operationId": "findAll_7",
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "List specialists",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Specialist"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "specialist-controller"
-        ],
-        "operationId": "update_7",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SpecialistUpdateDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Update a specialist",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Specialist"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "specialist-controller"
-        ],
-        "operationId": "save_7",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SpecialistDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Persist a specialist",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Specialist"
                 }
               }
             }
@@ -1884,12 +1882,202 @@
         }
       }
     },
+    "/eureka/resource-server/v1/notification": {
+      "get": {
+        "tags": [
+          "notification-controller"
+        ],
+        "operationId": "findAll_9",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "List notifications",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Notification"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "notification-controller"
+        ],
+        "operationId": "update_9",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationUpdateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Update a notification",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "notification-controller"
+        ],
+        "operationId": "save_9",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotificationDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persist a notification",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/eureka/resource-server/v1/mail": {
       "get": {
         "tags": [
           "mail-controller"
         ],
-        "operationId": "findAll_9",
+        "operationId": "findAll_10",
         "responses": {
           "400": {
             "description": "Bad Request",
@@ -1947,7 +2135,7 @@
         "tags": [
           "mail-controller"
         ],
-        "operationId": "update_9",
+        "operationId": "update_10",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2012,7 +2200,7 @@
         "tags": [
           "mail-controller"
         ],
-        "operationId": "save_9",
+        "operationId": "save_10",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2079,7 +2267,7 @@
         "tags": [
           "district-controller"
         ],
-        "operationId": "findAll_10",
+        "operationId": "findAll_11",
         "responses": {
           "400": {
             "description": "Bad Request",
@@ -2137,7 +2325,7 @@
         "tags": [
           "district-controller"
         ],
-        "operationId": "update_10",
+        "operationId": "update_11",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2202,7 +2390,7 @@
         "tags": [
           "district-controller"
         ],
-        "operationId": "save_10",
+        "operationId": "save_11",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2257,73 +2445,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/District"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/eureka/resource-server/v1/customer/updatePhoto": {
-      "put": {
-        "tags": [
-          "customer-controller"
-        ],
-        "operationId": "updatePhoto",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CustomerUpdatePhotoDto"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Update a customer photo",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
                 }
               }
             }
@@ -2523,7 +2644,7 @@
         "tags": [
           "customer-controller"
         ],
-        "operationId": "findAll_11",
+        "operationId": "findAll_12",
         "responses": {
           "400": {
             "description": "Bad Request",
@@ -2581,7 +2702,7 @@
         "tags": [
           "customer-controller"
         ],
-        "operationId": "update_11",
+        "operationId": "update_12",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2646,7 +2767,7 @@
         "tags": [
           "customer-controller"
         ],
-        "operationId": "save_11",
+        "operationId": "save_12",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2713,7 +2834,7 @@
         "tags": [
           "country-controller"
         ],
-        "operationId": "findAll_12",
+        "operationId": "findAll_13",
         "responses": {
           "400": {
             "description": "Bad Request",
@@ -2771,7 +2892,7 @@
         "tags": [
           "country-controller"
         ],
-        "operationId": "update_12",
+        "operationId": "update_13",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2836,7 +2957,7 @@
         "tags": [
           "country-controller"
         ],
-        "operationId": "save_12",
+        "operationId": "save_13",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2903,7 +3024,7 @@
         "tags": [
           "bank-controller"
         ],
-        "operationId": "findAll_13",
+        "operationId": "findAll_14",
         "responses": {
           "400": {
             "description": "Bad Request",
@@ -2961,7 +3082,7 @@
         "tags": [
           "bank-controller"
         ],
-        "operationId": "update_13",
+        "operationId": "update_14",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3026,7 +3147,7 @@
         "tags": [
           "bank-controller"
         ],
-        "operationId": "save_13",
+        "operationId": "save_14",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3234,6 +3355,600 @@
         }
       }
     },
+    "/eureka/resource-server/v1/specialist-specialization/delete/list": {
+      "post": {
+        "tags": [
+          "specialist-specialization-controller"
+        ],
+        "operationId": "deleteMany",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SpecialistSpecialization"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Delete some specialistSpecializations associated to a specific profession"
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist-cv": {
+      "get": {
+        "tags": [
+          "specialist-cv-controller"
+        ],
+        "operationId": "findAll_5",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "List specialist's cvs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SpecialistCv"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "specialist-cv-controller"
+        ],
+        "operationId": "save_5",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecialistCvDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persist a specialist cv",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpecialistCv"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist": {
+      "get": {
+        "tags": [
+          "specialist-controller"
+        ],
+        "operationId": "findAll_7",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "List specialists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Specialist"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "specialist-controller"
+        ],
+        "operationId": "save_7",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpecialistDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persist a specialist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Specialist"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/mail/send/init-recover-password": {
+      "post": {
+        "tags": [
+          "mail-controller"
+        ],
+        "operationId": "initRecoverPassword",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoverPasswordDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Send email to init recover password process"
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/experimental/upload": {
+      "post": {
+        "tags": [
+          "file-upload-experimental-controller"
+        ],
+        "operationId": "retrieveFileName",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "custom",
+                  "filePart"
+                ],
+                "type": "object",
+                "properties": {
+                  "filePart": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "custom": {
+                    "$ref": "#/components/schemas/CustomDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/experimental/simple": {
+      "post": {
+        "tags": [
+          "file-upload-experimental-controller"
+        ],
+        "operationId": "processPost",
+        "parameters": [
+          {
+            "name": "input",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/customer/updatePhoto": {
+      "post": {
+        "tags": [
+          "customer-controller"
+        ],
+        "operationId": "updatePhoto",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "extension",
+                  "id"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "extension": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Update a customer photo"
+          }
+        }
+      }
+    },
     "/eureka/resource-server/v1/work-location/{id}": {
       "get": {
         "tags": [
@@ -3301,6 +4016,76 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/user-recover/{id}/user/{userId}": {
+      "get": {
+        "tags": [
+          "user-recover-controller"
+        ],
+        "operationId": "validateUserRecoverTicket",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Validate limit date of ticket to recover password"
           }
         }
       }
@@ -3500,12 +4285,12 @@
         }
       }
     },
-    "/eureka/resource-server/v1/specialist/{id}": {
+    "/eureka/resource-server/v1/specialist/{id}/ratings": {
       "get": {
         "tags": [
           "specialist-controller"
         ],
-        "operationId": "findById_1",
+        "operationId": "getRatings",
         "parameters": [
           {
             "name": "id",
@@ -3556,11 +4341,81 @@
             }
           },
           "200": {
-            "description": "Find by id",
+            "description": "get ratings by specialist id",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Specialist"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Rating"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist/search": {
+      "get": {
+        "tags": [
+          "specialist-controller"
+        ],
+        "operationId": "search",
+        "parameters": [
+          {
+            "name": "specialistFiltersSearchDto",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/SpecialistFiltersSearchDto"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Find by filters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasePaginateResponseSpecialistResultSearchDTO"
                 }
               }
             }
@@ -3699,74 +4554,6 @@
                   "items": {
                     "$ref": "#/components/schemas/SpecialistSpecialization"
                   }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/eureka/resource-server/v1/specialist-cv/{id}": {
-      "get": {
-        "tags": [
-          "specialist-cv-controller"
-        ],
-        "operationId": "findById_2",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/ErrorResponse"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ApiError"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiError"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Find by id",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SpecialistCv"
                 }
               }
             }
@@ -3964,6 +4751,86 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/SpecialistBankAccount"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/notification/{profileType}/{userId}": {
+      "get": {
+        "tags": [
+          "notification-controller"
+        ],
+        "operationId": "findAllByUserId",
+        "parameters": [
+          {
+            "name": "profileType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "List notifications",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Notification"
                   }
                 }
               }
@@ -4174,6 +5041,276 @@
           },
           "200": {
             "description": "delete work location by id"
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist-specialization/{id}/profession/{professionId}": {
+      "delete": {
+        "tags": [
+          "specialist-specialization-controller"
+        ],
+        "operationId": "deleteAllByIdAndProfessionId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "professionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Delete all specialist specializations by specialistId and professionId"
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist-specialization/{id}": {
+      "delete": {
+        "tags": [
+          "specialist-specialization-controller"
+        ],
+        "operationId": "deleteById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Delete specialist specializations by specialistId"
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist-cv/{id}/experience/{professionId}": {
+      "delete": {
+        "tags": [
+          "specialist-cv-controller"
+        ],
+        "operationId": "deleteExperienceByIdAndProfessionId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "professionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Delete an experience of specialist cv"
+          }
+        }
+      }
+    },
+    "/eureka/resource-server/v1/specialist-cv/gallery/{specialistId}/{imageName}": {
+      "delete": {
+        "tags": [
+          "specialist-cv-controller"
+        ],
+        "operationId": "deleteImageFromGallery",
+        "parameters": [
+          {
+            "name": "specialistId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "imageName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ErrorResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Delete image from gallery of specialist cv"
           }
         }
       }
@@ -4420,6 +5557,145 @@
           }
         }
       },
+      "SpecialistUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "maxLength": 36,
+            "minLength": 2,
+            "type": "string"
+          },
+          "lastName": {
+            "maxLength": 36,
+            "minLength": 2,
+            "type": "string"
+          },
+          "address": {
+            "maxLength": 127,
+            "minLength": 2,
+            "type": "string"
+          },
+          "phone": {
+            "maxLength": 15,
+            "minLength": 9,
+            "type": "string"
+          },
+          "secondaryPhone": {
+            "maxLength": 15,
+            "minLength": 9,
+            "type": "string"
+          },
+          "districtId": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "file": {
+            "type": "string"
+          }
+        }
+      },
+      "Json": {
+        "type": "object"
+      },
+      "Specialist": {
+        "required": [
+          "address",
+          "document",
+          "email",
+          "lastName",
+          "name",
+          "phone",
+          "publicUrl",
+          "secondaryPhone"
+        ],
+        "type": "object",
+        "properties": {
+          "createdBy": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "maxLength": 36,
+            "minLength": 2,
+            "type": "string"
+          },
+          "lastName": {
+            "maxLength": 36,
+            "minLength": 2,
+            "type": "string"
+          },
+          "identity": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "gender": {
+            "maximum": 2,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "maxLength": 127,
+            "minLength": 2,
+            "type": "string"
+          },
+          "email": {
+            "maxLength": 60,
+            "minLength": 7,
+            "type": "string"
+          },
+          "document": {
+            "maxLength": 12,
+            "minLength": 8,
+            "type": "string"
+          },
+          "phone": {
+            "maxLength": 15,
+            "minLength": 9,
+            "type": "string"
+          },
+          "secondaryPhone": {
+            "maxLength": 15,
+            "minLength": 9,
+            "type": "string"
+          },
+          "publicUrl": {
+            "maxLength": 127,
+            "minLength": 7,
+            "type": "string"
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "ratings": {
+            "$ref": "#/components/schemas/Json"
+          },
+          "districtId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "SpecialistSpecializationUpdateDto": {
         "required": [
           "listSpecialitiesIds",
@@ -4470,6 +5746,72 @@
           }
         }
       },
+      "SpecialistCvPresentationUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "about": {
+            "maxLength": 1300,
+            "minLength": 30,
+            "type": "string"
+          },
+          "filePhoto": {
+            "type": "string"
+          },
+          "filePhotoExtension": {
+            "type": "string"
+          },
+          "flagUpdatePhoto": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SpecialistCv": {
+        "required": [
+          "experienceTimes"
+        ],
+        "type": "object",
+        "properties": {
+          "createdBy": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "about": {
+            "maxLength": 1300,
+            "minLength": 30,
+            "type": "string"
+          },
+          "socialNetworks": {
+            "$ref": "#/components/schemas/Json"
+          },
+          "gallery": {
+            "$ref": "#/components/schemas/Json"
+          },
+          "profilePhoto": {
+            "$ref": "#/components/schemas/Json"
+          },
+          "experienceTimes": {
+            "$ref": "#/components/schemas/Json"
+          }
+        }
+      },
       "SpecialistExperienceUpdateDto": {
         "required": [
           "index",
@@ -4492,25 +5834,30 @@
           }
         }
       },
-      "SpecialistGalleryUpdateDto": {
+      "Experience": {
+        "required": [
+          "professionId",
+          "professionName"
+        ],
         "type": "object",
         "properties": {
-          "specialistCvId": {
+          "professionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "professionName": {
+            "maxLength": 50,
+            "minLength": 3,
+            "type": "string"
+          },
+          "time": {
+            "type": "integer",
+            "description": "Experience time in a profession expressed in months",
+            "format": "int32"
+          },
+          "date": {
             "type": "string",
-            "format": "uuid"
-          },
-          "filesRemove": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "files": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "binary"
-            }
+            "format": "date-time"
           }
         }
       },
@@ -4538,33 +5885,6 @@
             "maxLength": 200,
             "minLength": 36,
             "type": "string"
-          },
-          "date": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "Experience": {
-        "required": [
-          "professionId",
-          "professionName"
-        ],
-        "type": "object",
-        "properties": {
-          "professionId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "professionName": {
-            "maxLength": 50,
-            "minLength": 3,
-            "type": "string"
-          },
-          "time": {
-            "type": "integer",
-            "description": "Experience time in a profession expressed in months",
-            "format": "int32"
           },
           "date": {
             "type": "string",
@@ -4627,52 +5947,33 @@
             "items": {
               "$ref": "#/components/schemas/Experience"
             }
+          },
+          "filePhoto": {
+            "type": "string"
+          },
+          "filePhotoExtension": {
+            "type": "string"
+          },
+          "flagUpdatePhoto": {
+            "type": "boolean"
           }
         }
       },
-      "Json": {
-        "type": "object"
-      },
-      "SpecialistCv": {
+      "SpecialistGalleryUpdateDto": {
         "required": [
-          "experienceTimes"
+          "specialistId"
         ],
         "type": "object",
         "properties": {
-          "createdBy": {
-            "type": "string"
-          },
-          "creationDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "modifiedBy": {
-            "type": "string"
-          },
-          "modifiedDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "id": {
+          "specialistId": {
             "type": "string",
             "format": "uuid"
           },
-          "about": {
-            "maxLength": 1300,
-            "minLength": 30,
-            "type": "string"
-          },
-          "socialNetworks": {
-            "$ref": "#/components/schemas/Json"
-          },
-          "gallery": {
-            "$ref": "#/components/schemas/Json"
-          },
-          "profilePhoto": {
-            "$ref": "#/components/schemas/Json"
-          },
-          "experienceTimes": {
-            "$ref": "#/components/schemas/Json"
+          "fileIdsToRemove": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -4766,138 +6067,6 @@
           }
         }
       },
-      "SpecialistUpdateDto": {
-        "required": [
-          "address",
-          "lastName",
-          "name",
-          "phone"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "name": {
-            "maxLength": 36,
-            "minLength": 2,
-            "type": "string"
-          },
-          "lastName": {
-            "maxLength": 36,
-            "minLength": 2,
-            "type": "string"
-          },
-          "address": {
-            "maxLength": 127,
-            "minLength": 2,
-            "type": "string"
-          },
-          "phone": {
-            "maxLength": 15,
-            "minLength": 9,
-            "type": "string"
-          },
-          "districtId": {
-            "type": "integer",
-            "format": "int32",
-            "example": 1
-          },
-          "file": {
-            "type": "string",
-            "format": "binary"
-          }
-        }
-      },
-      "Specialist": {
-        "required": [
-          "address",
-          "document",
-          "email",
-          "lastName",
-          "name",
-          "phone",
-          "publicUrl"
-        ],
-        "type": "object",
-        "properties": {
-          "createdBy": {
-            "type": "string"
-          },
-          "creationDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "modifiedBy": {
-            "type": "string"
-          },
-          "modifiedDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "name": {
-            "maxLength": 36,
-            "minLength": 2,
-            "type": "string"
-          },
-          "lastName": {
-            "maxLength": 36,
-            "minLength": 2,
-            "type": "string"
-          },
-          "identity": {
-            "minimum": 0,
-            "type": "integer",
-            "format": "int32"
-          },
-          "gender": {
-            "maximum": 2,
-            "minimum": 1,
-            "type": "integer",
-            "format": "int32"
-          },
-          "address": {
-            "maxLength": 127,
-            "minLength": 2,
-            "type": "string"
-          },
-          "email": {
-            "maxLength": 60,
-            "minLength": 7,
-            "type": "string"
-          },
-          "document": {
-            "maxLength": 12,
-            "minLength": 8,
-            "type": "string"
-          },
-          "phone": {
-            "maxLength": 15,
-            "minLength": 9,
-            "type": "string"
-          },
-          "publicUrl": {
-            "maxLength": 127,
-            "minLength": 7,
-            "type": "string"
-          },
-          "verified": {
-            "type": "boolean"
-          },
-          "ratings": {
-            "$ref": "#/components/schemas/Json"
-          },
-          "districtId": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
       "ProfessionUpdateDto": {
         "type": "object",
         "properties": {
@@ -4937,6 +6106,88 @@
             "maxLength": 50,
             "minLength": 2,
             "type": "string"
+          }
+        }
+      },
+      "NotificationUpdateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "read": {
+            "type": "boolean"
+          },
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Notification": {
+        "required": [
+          "icon",
+          "message",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "createdBy": {
+            "type": "string"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedBy": {
+            "type": "string"
+          },
+          "modifiedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "specialistId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "customerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "maxLength": 72,
+            "minLength": 3,
+            "type": "string"
+          },
+          "message": {
+            "maxLength": 600,
+            "minLength": 3,
+            "type": "string"
+          },
+          "icon": {
+            "maxLength": 72,
+            "minLength": 3,
+            "type": "string"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "toSpecialist": {
+            "type": "boolean"
+          },
+          "toCustomer": {
+            "type": "boolean"
+          },
+          "read": {
+            "type": "boolean"
+          },
+          "deleted": {
+            "type": "boolean"
           }
         }
       },
@@ -4994,6 +6245,8 @@
             "type": "string"
           },
           "body": {
+            "maxLength": 2000,
+            "minLength": 0,
             "type": "string"
           },
           "description": {
@@ -5078,19 +6331,6 @@
           }
         }
       },
-      "CustomerUpdatePhotoDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "file": {
-            "type": "string",
-            "format": "binary"
-          }
-        }
-      },
       "CustomerPasswordUpdateDto": {
         "required": [
           "id",
@@ -5171,9 +6411,7 @@
         "required": [
           "email",
           "lastName",
-          "name",
-          "phone",
-          "publicUrl"
+          "name"
         ],
         "type": "object",
         "properties": {
@@ -5606,6 +6844,11 @@
             "minLength": 9,
             "type": "string"
           },
+          "secondaryPhone": {
+            "maxLength": 15,
+            "minLength": 9,
+            "type": "string"
+          },
           "publicUrl": {
             "maxLength": 127,
             "minLength": 7,
@@ -5635,6 +6878,87 @@
           }
         }
       },
+      "NotificationDto": {
+        "required": [
+          "icon",
+          "message",
+          "title"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "specialistId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "customerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "maxLength": 72,
+            "minLength": 3,
+            "type": "string"
+          },
+          "message": {
+            "maxLength": 600,
+            "minLength": 3,
+            "type": "string"
+          },
+          "icon": {
+            "maxLength": 72,
+            "minLength": 3,
+            "type": "string"
+          },
+          "type": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "toSpecialist": {
+            "type": "boolean"
+          },
+          "toCustomer": {
+            "type": "boolean"
+          },
+          "read": {
+            "type": "boolean"
+          },
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RecoverPasswordDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "verificationCode": {
+            "maxLength": 127,
+            "minLength": 0,
+            "type": "string"
+          },
+          "flagRecover": {
+            "type": "boolean"
+          },
+          "limitDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "emailReceiver": {
+            "type": "string"
+          }
+        }
+      },
       "MailDto": {
         "required": [
           "body",
@@ -5660,6 +6984,24 @@
             "items": {
               "$ref": "#/components/schemas/MailInput"
             }
+          }
+        }
+      },
+      "CustomDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "imageURLs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "inputImageName": {
+            "type": "string"
           }
         }
       },
@@ -5816,6 +7158,127 @@
           },
           "enabled": {
             "type": "boolean"
+          }
+        }
+      },
+      "Rating": {
+        "required": [
+          "calification",
+          "clientName",
+          "serviceId"
+        ],
+        "type": "object",
+        "properties": {
+          "calification": {
+            "minimum": 1,
+            "type": "number",
+            "format": "float"
+          },
+          "comment": {
+            "maxLength": 250,
+            "minLength": 9,
+            "type": "string"
+          },
+          "clientName": {
+            "maxLength": 72,
+            "minLength": 9,
+            "type": "string"
+          },
+          "serviceId": {
+            "maxLength": 2147483647,
+            "minLength": 36,
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SpecialistFiltersSearchDto": {
+        "type": "object",
+        "properties": {
+          "sortColumn": {
+            "maxLength": 60,
+            "minLength": 0,
+            "type": "string"
+          },
+          "sortDirection": {
+            "maxLength": 4,
+            "minLength": 0,
+            "type": "string"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "maximum": 100,
+            "type": "integer",
+            "format": "int32"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "specialties": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "districts": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        }
+      },
+      "BasePaginateResponseSpecialistResultSearchDTO": {
+        "type": "object",
+        "properties": {
+          "totalRows": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SpecialistResultSearchDTO"
+            }
+          }
+        }
+      },
+      "SpecialistResultSearchDTO": {
+        "type": "object",
+        "properties": {
+          "specialistId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "assessment": {
+            "type": "string"
+          },
+          "about": {
+            "type": "string"
+          },
+          "professions": {
+            "type": "string"
           }
         }
       },
