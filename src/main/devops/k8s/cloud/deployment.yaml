@@ -24,7 +24,7 @@ spec:
       serviceAccountName: jaipro-sa
       containers:
         - name: jaipro-authentication
-          image: gcr.io/driven-realm-401316/eureka-auth
+          image: gcr.io/rapid-access-410400/eureka-auth
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

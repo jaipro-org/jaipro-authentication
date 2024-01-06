@@ -20,7 +20,7 @@
         <spring-cloud.version>2021.0.1</spring-cloud.version>
         <spring-cloud-kubernetes.version>1.1.6.RELEASE</spring-cloud-kubernetes.version>
         <validation-api.version>2.0.2</validation-api.version>
-        <gcp-project-id>driven-realm-401316</gcp-project-id>
+        <gcp-project-id>rapid-access-410400</gcp-project-id>
     </properties>
 
     <dependencies>
